@@ -1,12 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.IO;
 using System.Text;
 
 public class Question_Parser : MonoBehaviour
 {
+    public Text qtext;
+    public Text a1text;
+    public Text a2text;
+    public Text a3text;
+    public Text a4text;
+
+
 
     //Question bank created on Parser.Run
     List<string> qType = new List<string>();
@@ -31,8 +39,9 @@ public class Question_Parser : MonoBehaviour
 
     //Creates the question bank in lists. Each Index in each list go together.
     //Input must be a string in the form   string ex = @"fullpath"
-    public void Run(string path)
+    public void Qpop()
     {
+        string path = "Assets/Questions.csv";
         using (var reader = new StreamReader(path))
         {
             while (!reader.EndOfStream)
@@ -48,6 +57,16 @@ public class Question_Parser : MonoBehaviour
                 iAnswer3.Add(values[5]);
             }
         }
+
+        string[] q = this.GetQuestion(0);
+        
+         qtext.text = q[0].Replace("@", Environment.NewLine);
+        a1text.text = q[1];
+         a2text.text = q[2];
+         a3text.text = q[3];
+         a4text.text = q[4];
+        Debug.Log("button was clicked!");
+        return;
     }
 
 
