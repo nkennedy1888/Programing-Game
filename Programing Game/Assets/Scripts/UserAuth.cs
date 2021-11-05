@@ -126,11 +126,11 @@ public class UserAuth : MonoBehaviour
         
         if (student)
         {
-            userEntry = "[STUDENT] : <" + currUser + "> : <" + currPassword + "> : <" + classCode + ">\n";
+            userEntry = "[STUDENT] : <" + currUser + "> : <" + currPassword + "> : <" + classCode + ">";
         }
         else if (teacher)
         {
-            userEntry = "[TEACHER] : <" + currUser + "> : <" + currPassword + ">\n";
+            userEntry = "[TEACHER] : <" + currUser + "> : <" + currPassword + ">";
         }
         else { Debug.Log("UserAuth.CreateAccount() has experienced an error in student/teacher determination"); }
         

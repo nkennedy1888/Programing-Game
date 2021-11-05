@@ -1,4 +1,6 @@
 [STUDENT] : <ndetavernier> : <21savage> : <12345>
 [STUDENT] : <ndetavernier1> : <21savages> : <wawa2>
 [TEACHER] : <admin> : <password>
-
+[STUDENT] : <mauzer> : <simplepassword> : <11521>
+[STUDENT] : <mauzer21> : <wawawa> : <92929>
+[STUDENT] : <mauzer69> : <wawawawa> : <99999>

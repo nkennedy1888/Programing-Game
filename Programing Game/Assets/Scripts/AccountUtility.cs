@@ -7,7 +7,7 @@ public class AccountUtility : MonoBehaviour
 {
 
     public GameObject interactiveDropdown;
-    public GameObject settings;
+    //public GameObject settings;
     //GameObject changeAvatar, changePassword, signOut;
     
     
