@@ -14,7 +14,7 @@ public class LevelGen : MonoBehaviour
     public GameObject player;
     private GameObject platform;
     private PlatformTemplates templates;
-    private int rand;
+    [HideInInspector] public int color;
     private int randY;
     private GameObject prev;   
     private int x = 0;      
@@ -28,10 +28,10 @@ public class LevelGen : MonoBehaviour
         //Get platform templates
         templates = GameObject.FindGameObjectWithTag("Platform").GetComponent<PlatformTemplates>();
         //Chose platform color
-        rand = Random.Range(0, templates.left.Length);
+        color = Random.Range(0, templates.left.Length);
 
         //Set spawn location and name Start
-        GameObject spawn = Instantiate(templates.left[rand], new Vector3(0.5f,0.5f,0), Quaternion.identity, platform.transform);
+        GameObject spawn = Instantiate(templates.left[color], new Vector3(0.5f,0.5f,0), Quaternion.identity, platform.transform);
         spawn.name = "Start";
         //Set for last tile spawned
         prev = spawn;
@@ -74,7 +74,7 @@ public class LevelGen : MonoBehaviour
         if (x >= maxX && x < maxX + 1 && prev.tag != "Right") 
         {
             x++;
-            Instantiate(templates.right[rand], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+            Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
         }
        
     }
@@ -84,7 +84,7 @@ public class LevelGen : MonoBehaviour
     {
         if (prev.tag == "Left") 
         {
-          prev =  Instantiate(templates.middle[rand], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+          prev =  Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
         }
         else 
         {
@@ -93,18 +93,18 @@ public class LevelGen : MonoBehaviour
                 int r = Random.Range(0, 4);
                 if (r != 0) 
                 {
-                    prev = Instantiate(templates.middle[rand], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+                    prev = Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
                 }
                 else 
                 {
-                    prev = Instantiate(templates.right[rand], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+                    prev = Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
                 }
             }
             else 
             {
                 if (prev.tag == "Right") 
                 {                   
-                    prev = Instantiate(templates.left[rand], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+                    prev = Instantiate(templates.left[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
                 }
             }
         }

@@ -9,6 +9,7 @@ TagManager:
   - Left
   - Right
   - Platform
+  - Battlespot
   layers:
   - Default
   - TransparentFX
