@@ -7,6 +7,7 @@ public class AccountUtility : MonoBehaviour
 {
 
     public GameObject interactiveDropdown;
+    public GameObject settings;
     //GameObject changeAvatar, changePassword, signOut;
     
     
@@ -31,6 +32,7 @@ public class AccountUtility : MonoBehaviour
         //Debug.Log("Current state: " + state);
     }
 
+    
 
     public void ToggleVisibility()
     {

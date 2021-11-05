@@ -1,2 +1,4 @@
-<admin> : <password>
-<ndetavernier> : <wawa>
+[STUDENT] : <ndetavernier> : <21savage> : <12345>
+[STUDENT] : <ndetavernier1> : <21savages> : <wawa2>
+[TEACHER] : <admin> : <password>
+

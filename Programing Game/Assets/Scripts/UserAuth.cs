@@ -7,12 +7,17 @@ using UnityEngine.SceneManagement;
 
 public class UserAuth : MonoBehaviour
 {
-    private string currUser, currPassword;
+
+    public GameObject b_signUp, b_Submit, parent_AccType, parent_TeacherAcc, parent_StudentAcc;
+    private string currUser, currPassword, confirmPass, classCode;
+    private bool student = false, teacher = false;
     private string path = "Assets/SaveData/users.txt";
     // Start is called before the first frame update
     void Start()
     {
-        
+        parent_AccType.SetActive(false);
+        parent_StudentAcc.SetActive(false);
+        parent_TeacherAcc.SetActive(false);
     }
 
     // Update is called once per frame
@@ -33,13 +38,51 @@ public class UserAuth : MonoBehaviour
         currPassword = temp;
     }
 
-    
+    public void GetConfirmPass(string temp)
+    {
+        confirmPass = temp;
+    }
+
+    public void GetCodeInput(string temp)
+    {
+        classCode = temp;
+    }
+
+    public void AccountType()
+    {
+        b_Submit.SetActive(false);
+        b_signUp.SetActive(false);
+        parent_AccType.SetActive(true);   
+    }
+
+    public void IsStudent()
+    {
+        student = true;
+        parent_AccType.SetActive(false);
+        parent_StudentAcc.SetActive(true);
+    }
+
+    public void IsTeacher()
+    {
+        teacher = true;
+        parent_AccType.SetActive(false);
+        parent_TeacherAcc.SetActive(true);
+    }
+
+
     public void CreateAccount()
     {
+        
         Debug.Log("User: " +currUser +"Password: " +currPassword);
         if (currUser == "" || currPassword == "")
         {
             Debug.Log("Please enter a unique user-name and password");
+            return;
+        }
+
+        if (!currPassword.Equals(confirmPass))
+        {
+            Debug.Log("Passwords do not match");
             return;
         }
 
@@ -52,9 +95,11 @@ public class UserAuth : MonoBehaviour
             string line;
             StreamReader reader = new StreamReader(path);
 
-            while ((line = reader.ReadLine()) != null)
+            while ((line = reader.ReadLine()) != null && line != "")
             {
-                if (line.Contains(currUser))
+                //Important to note: a substring of the format .substring(startIndex, endIndex) is not available in C#, so the condition below finds proper length to get the username substring
+                //Debug.Log("Username in parsers current line: " +line.Substring(line.IndexOf("] : <") + 5, (line.IndexOf("> :") - (line.IndexOf("] : <") + 5))));
+                if (line.Substring(line.IndexOf("] : <") + 5, (line.IndexOf("> :") - (line.IndexOf("] : <") + 5))).Equals(currUser))
                 {
                     Debug.Log("Duplicate username; enter unique username");
                     reader.Close();
@@ -72,23 +117,44 @@ public class UserAuth : MonoBehaviour
         //Stores entered user data in users.txt according to the following format:
         /*
          * 
-         * <username> <password>
-         * <username> <password>
+         * [STUDENT] : <username> : <password> : <code>
+         * [TEACHER] : <username> : <password>
          * 
          */
 
-        string userEntry = "<" +currUser +"> : <" +currPassword +">";
+        string userEntry = "";
+        
+        if (student)
+        {
+            userEntry = "[STUDENT] : <" + currUser + "> : <" + currPassword + "> : <" + classCode + ">\n";
+        }
+        else if (teacher)
+        {
+            userEntry = "[TEACHER] : <" + currUser + "> : <" + currPassword + ">\n";
+        }
+        else { Debug.Log("UserAuth.CreateAccount() has experienced an error in student/teacher determination"); }
+        
+        
         StreamWriter writer = new StreamWriter(path, true);
 
         writer.WriteLine(userEntry);
         writer.Close();
 
-        SceneManager.LoadScene("Main - Student");
+        if (student)
+        {
+            SceneManager.LoadScene("Main - Student");
+        }
+        else if (teacher)
+        {
+            SceneManager.LoadScene("Main - Teacher");
+        }
+        
 
     }
 
     public void Login()
     {
+        Debug.Log("User: " + currUser + "Password: " + currPassword);
         if (currUser == "" || currPassword == "")
         {
             Debug.Log("Please enter your user-name and password");
