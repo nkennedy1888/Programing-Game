@@ -9,15 +9,26 @@ public class UserAuth : MonoBehaviour
 {
 
     public GameObject b_signUp, b_Submit, parent_AccType, parent_TeacherAcc, parent_StudentAcc;
+    public GameObject err_Username, err_Password, err_ConfPass_Teacher, err_ConfPass_Student, err_ClassCode;
     private string currUser, currPassword, confirmPass, classCode;
     private bool student = false, teacher = false;
     private string path = "Assets/SaveData/users.txt";
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
         parent_AccType.SetActive(false);
         parent_StudentAcc.SetActive(false);
         parent_TeacherAcc.SetActive(false);
+
+        err_Username.SetActive(false);
+        err_Password.SetActive(false);
+        err_ConfPass_Teacher.SetActive(false);
+        err_ConfPass_Student.SetActive(false);
+        err_ClassCode.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -77,12 +88,14 @@ public class UserAuth : MonoBehaviour
         if (currUser == "" || currPassword == "")
         {
             Debug.Log("Please enter a unique user-name and password");
+            err_Password.SetActive(true);
             return;
         }
 
         if (!currPassword.Equals(confirmPass))
         {
             Debug.Log("Passwords do not match");
+            err_Password.SetActive(true);
             return;
         }
 
@@ -102,6 +115,7 @@ public class UserAuth : MonoBehaviour
                 if (line.Substring(line.IndexOf("] : <") + 5, (line.IndexOf("> :") - (line.IndexOf("] : <") + 5))).Equals(currUser))
                 {
                     Debug.Log("Duplicate username; enter unique username");
+                    err_Username.SetActive(true);
                     reader.Close();
                     return;                 
                 }
@@ -152,31 +166,63 @@ public class UserAuth : MonoBehaviour
 
     }
 
+    //Need to add functionality to cross-reference whether user is student or teacher
     public void Login()
     {
+        
         Debug.Log("User: " + currUser + "Password: " + currPassword);
         if (currUser == "" || currPassword == "")
         {
             Debug.Log("Please enter your user-name and password");
+            err_Password.SetActive(true);
             return;
         }
 
         if (File.Exists(path))
         {
+            string storedUser, storedPass, storedType;
             string line;
             StreamReader reader = new StreamReader(path);
 
-            while ((line = reader.ReadLine()) != null)
+            while ((line = reader.ReadLine()) != null && line != "")
             {
-                if (line.Contains(currUser) && line.Contains(currPassword))
+                //returns account type
+                storedType = line.Substring(line.IndexOf("[") + 1, (line.IndexOf("]") - (line.IndexOf("[") +1)));
+                Debug.Log("AccType in line: " + storedType);
+                //returns user name
+                storedUser = line.Substring(line.IndexOf("] : <") + 5, (line.IndexOf("> :") - (line.IndexOf("] : <") + 5)));
+                Debug.Log("Username in line: " + storedUser);
+                //returns password
+                Debug.Log("startIndex: " + line.IndexOf("> : <") + 5);
+                //Debug.Log("\nendIndex: " + (line.IndexOf("> :") - (line.IndexOf("> : <") + 5)));
+                storedPass = line.Substring(line.IndexOf("> : <") + 5, (line.IndexOf("> :", (line.IndexOf("> : <") + 5)) - (line.IndexOf("> : <") + 5)));
+                Debug.Log("Password in line: " + storedPass);
+
+                if (storedType.Equals("STUDENT") && storedUser.Equals(currUser) && storedPass.Equals(currPassword))
                 {
                     SceneManager.LoadScene("Main - Student");
                     reader.Close();
+                    storedType = "";
+                    storedUser = "";
+                    storedPass = "";
                     return;
                 }
+                else if (storedType.Equals("TEACHER") && storedUser.Equals(currUser) && storedPass.Equals(currPassword))
+                {
+                    SceneManager.LoadScene("Main - Teacher");
+                    reader.Close();
+                    storedType = "";
+                    storedUser = "";
+                    storedPass = "";
+                    return;
+                }
+                storedType = "";
+                storedUser = "";
+                storedPass = "";
             }
             reader.Close();
 
+            err_Password.SetActive(true);
             Debug.Log("Entered account does not exist");
             return;
         }

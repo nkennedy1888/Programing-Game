@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainStudent : MonoBehaviour
+public class MainTeacher : MonoBehaviour
 {
-
     public GameObject settings_Parent, account_Parent;
 
     // Start is called before the first frame update
@@ -17,7 +16,7 @@ public class MainStudent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void ToggleSettingsVis()

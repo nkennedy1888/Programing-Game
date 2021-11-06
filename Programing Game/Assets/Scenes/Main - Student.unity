@@ -376,7 +376,6 @@ GameObject:
   - component: {fileID: 289398376}
   - component: {fileID: 289398375}
   - component: {fileID: 289398374}
-  - component: {fileID: 289398377}
   m_Layer: 5
   m_Name: Account
   m_TagString: Untagged
@@ -449,9 +448,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 289398377}
-        m_TargetAssemblyTypeName: AccountUtility, Assembly-CSharp
-        m_MethodName: ToggleVisibility
+      - m_Target: {fileID: 659052381}
+        m_TargetAssemblyTypeName: MainStudent, Assembly-CSharp
+        m_MethodName: ToggleAccountVis
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -499,19 +498,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 289398372}
   m_CullTransparentMesh: 1
---- !u!114 &289398377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 289398372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7e5d221779509f49bf30e2f8b2577f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactiveDropdown: {fileID: 764813514}
 --- !u!1 &359036357
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,6 +1123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings_Parent: {fileID: 510394252}
+  account_Parent: {fileID: 764813514}
 --- !u!1 &669149922
 GameObject:
   m_ObjectHideFlags: 0
