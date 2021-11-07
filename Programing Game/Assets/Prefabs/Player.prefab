@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4321062564560487468}
   - component: {fileID: 4321062564560487469}
   - component: {fileID: -3844188733099937382}
+  - component: {fileID: 6464650376363656351}
+  - component: {fileID: 8324814862494231052}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -105,7 +107,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &4321062564560487469
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,3 +148,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectCollider: {fileID: 4321062564560487469}
   anotherCollider: {fileID: 0}
+--- !u!114 &6464650376363656351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4321062564560487471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c6271dac8b257942a3d4f95e1659cf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currUser:
+    username: 
+    progressBeginner: 0
+    progressIntermediate: 0
+    progressAdvanced: 0
+    avatarID: 0
+    qstCrctBeginner: 0
+    qstWrgBeginner: 0
+    qstCrctIntermediate: 0
+    qstWrgIntermediate: 0
+    qstCrctAdvanced: 0
+    qstWrgAdvanced: 0
+--- !u!114 &8324814862494231052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4321062564560487471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1b2f3b8bb92a114fb1904b5d6e2f228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBackdrop: 0
