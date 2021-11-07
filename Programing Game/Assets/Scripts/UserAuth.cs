@@ -170,6 +170,7 @@ public class UserAuth : MonoBehaviour
             {
                 if (line.Contains(currUser) && line.Contains(currPassword))
                 {
+                    PlayerPrefs.SetString("name", currUser);
                     SceneManager.LoadScene("Main - Student");
                     reader.Close();
                     return;
