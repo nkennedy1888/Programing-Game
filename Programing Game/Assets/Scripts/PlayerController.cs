@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    //private Animator anim;
+    private Animator anim;
     public Collider2D objectCollider;
     public Collider2D anotherCollider;
 
@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        // anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         anotherCollider = GameObject.FindGameObjectWithTag("Platform").GetComponent<CompositeCollider2D>();
     }
 
@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float hDirection = Input.GetAxisRaw("Horizontal");
+
+        anim.SetFloat("Speed", Mathf.Abs(hDirection));
+        anim.SetBool("IsJumping", rb.velocity.y > 0.01);
+        anim.SetBool("IsFalling", rb.velocity.y < -0.01);
 
         if (hDirection > 0)
         {
