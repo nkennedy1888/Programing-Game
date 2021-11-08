@@ -6,9 +6,14 @@ public class ChangeAvatar : MonoBehaviour
 {
     private UserData user;
     private int index;
-    private int avatars = 3;
+    private int avatars;
 
-    void ChangePlayer() 
+    private void Update()
+    {
+        avatars = GameObject.FindGameObjectWithTag("Player").GetComponent<AvatarData>().avatars.Length - 1;
+    }
+
+    public void ChangePlayer() 
     {
         user = GameObject.FindGameObjectWithTag("Player").GetComponent<Database>().currUser;
         index = user.avatarID;
@@ -21,5 +26,7 @@ public class ChangeAvatar : MonoBehaviour
         {
             user.avatarID = 0;
         }
+
+        return;
     }
 }
