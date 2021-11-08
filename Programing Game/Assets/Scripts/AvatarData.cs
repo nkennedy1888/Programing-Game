@@ -4,7 +4,7 @@ public class AvatarData : MonoBehaviour
 {
     public bool isBackdrop;
     public PlayerController playerController;
-    public Sprite[] avatars;
+    public RuntimeAnimatorController[] avatars;
     public int index;
     public GameObject player;
 
@@ -41,6 +41,6 @@ public class AvatarData : MonoBehaviour
 
         
 
-        player.GetComponent<SpriteRenderer>().sprite = avatars[index];
+        player.GetComponent<Animator>().runtimeAnimatorController = avatars[index];
     }
 }

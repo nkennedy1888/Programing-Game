@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 2d728ff08787c6640bbe4984c7ff018b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &4321062564560487468
@@ -188,10 +188,10 @@ MonoBehaviour:
   isBackdrop: 0
   playerController: {fileID: -3844188733099937382}
   avatars:
-  - {fileID: -6367560908665664636, guid: 3750f45c844123341b9a777a96cb1eca, type: 3}
-  - {fileID: -6367560908665664636, guid: cd947491a13509945aa1b644f9db3ef2, type: 3}
-  - {fileID: -6367560908665664636, guid: d348dff3819df794186a80cb95777629, type: 3}
-  - {fileID: -6367560908665664636, guid: 40de9a8703e2e5a47882b0b86451c741, type: 3}
+  - {fileID: 22100000, guid: d2e8bbc9607d9a34983aeaf3d14c55f9, type: 2}
+  - {fileID: 22100000, guid: e5a7fc6a12051f148afb9feb7f0a8991, type: 2}
+  - {fileID: 22100000, guid: e999399f103fb564d82b24f8fe25a92b, type: 2}
+  - {fileID: 22100000, guid: 7c3b2c6a282e81242a2b5e3ed69a78f9, type: 2}
   index: 1
   player: {fileID: 4321062564560487471}
 --- !u!95 &6485653210763644474
