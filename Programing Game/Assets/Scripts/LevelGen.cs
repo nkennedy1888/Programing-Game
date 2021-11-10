@@ -49,7 +49,7 @@ public class LevelGen : MonoBehaviour
             if (prev.tag == "Right")       
             {
                 int ytemp = y;       
-                randY = Random.Range(-2, maxJump);
+                randY = Random.Range(-maxJump, maxJump);
                 
                 if (randY == 0) 
                 {

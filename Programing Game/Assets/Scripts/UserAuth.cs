@@ -200,6 +200,7 @@ public class UserAuth : MonoBehaviour
 
                 if (storedType.Equals("STUDENT") && storedUser.Equals(currUser) && storedPass.Equals(currPassword))
                 {
+                    PlayerPrefs.SetString("name", currUser);
                     SceneManager.LoadScene("Main - Student");
                     reader.Close();
                     storedType = "";
