@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class MainStudent : MonoBehaviour
 {
@@ -30,5 +32,10 @@ public class MainStudent : MonoBehaviour
 
         account_Parent.SetActive(!account_Parent.activeSelf);
 
+    }
+
+    public void NavigateToBattle()
+    {
+        SceneManager.LoadScene("Battle");
     }
 }

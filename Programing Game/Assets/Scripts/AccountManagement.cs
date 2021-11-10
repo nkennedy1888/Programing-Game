@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-
+//All methods in AccountManagement deal strictly with savedata/users.txt data manipulation and insertion
 public class AccountManagement : MonoBehaviour
 {
     
@@ -21,55 +21,56 @@ public class AccountManagement : MonoBehaviour
         
     }
 
-    //All methods in AccountManagement deal strictly with savedata/users.txt data manipulation and insertion
+    //Retrieve current users password, current user given by GetUsername() 
     string GetPassword()
     {
-        string pass;
+        string pass = "";
         return pass;
     }
 
+    //Write current users password input to users.txt
     void SetPassword(string temp)
     {
 
     }
 
+    //Write current users password input to users.txt and PlayerPrefs for persistence across scenes
     public void SetUsername(string temp)
     {
         PlayerPrefs.SetString("username", temp);
     }
-    string GetUsername()
+    //Read current username from PlayerPrefs; accessible from all scenes
+    public string GetUsername()
     {
         return PlayerPrefs.GetString("username");
     }
 
-    //void SetUsername(string temp)
-    //{
-
-    //}
-
+    //Writes defined account type to users.txt; action done during acc creation
     void SetAccType()
     {
 
     }
 
+    //Reads account type from users.txt, uses GetUsername() to find appropriate account
     string GetAccType()
     {
-        string accType;
+        string accType = "";
         return accType;
     }
 
-    bool IsStudent()
-    {
-
-    }
+    ////Unnecessary?
+    //bool IsStudent()
+    //{
+    //    return true;
+    //}
     
-    bool IsTeacher()
-    {
-        
-    }
+    //bool IsTeacher()
+    //{
+    //    return true;
+    //}
 
 
-
+    //Self-evident; creates an account with the given input parameters and formats the input to the given comment below
     void CreateAccount(string type, string name, string pass, string code)
     {
 
@@ -102,6 +103,13 @@ public class AccountManagement : MonoBehaviour
         
     }
 
+    //Removes current user entry from playerprefs; redirects to login scene
+    void LogOut()
+    {
+
+    }
+
+    //Delete all account details from users.txt; call LogOut() to finalize
     void DeleteAccount(string name, string pass)
     {
 
