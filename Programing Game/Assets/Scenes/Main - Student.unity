@@ -898,7 +898,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 533815829}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 764813516}
+        m_TargetAssemblyTypeName: UserAuth, Assembly-CSharp
+        m_MethodName: LogOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &533815829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1224,6 +1236,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 764813515}
+  - component: {fileID: 764813516}
   m_Layer: 5
   m_Name: DropdownAccount
   m_TagString: Untagged
@@ -1253,6 +1266,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &764813516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764813514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6934eaabc7257c043ba5bfb2be009e9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  b_signUp: {fileID: 0}
+  b_Submit: {fileID: 0}
+  parent_AccType: {fileID: 0}
+  parent_TeacherAcc: {fileID: 0}
+  parent_StudentAcc: {fileID: 0}
+  err_Username: {fileID: 0}
+  err_Password: {fileID: 0}
+  err_ConfPass_Teacher: {fileID: 0}
+  err_ConfPass_Student: {fileID: 0}
+  err_ClassCode: {fileID: 0}
 --- !u!1 &920865109
 GameObject:
   m_ObjectHideFlags: 0
