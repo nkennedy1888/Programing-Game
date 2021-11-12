@@ -10,3 +10,9 @@ pass: password
 type: teacher
 code: 
 },
+{
+name: person
+pass: discrete
+type: student
+code: 22143
+},

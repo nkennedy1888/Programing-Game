@@ -352,6 +352,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 303940712}
+        m_TargetAssemblyTypeName: UIGeneral, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &67462248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1126,6 +1138,7 @@ GameObject:
   - component: {fileID: 303940716}
   - component: {fileID: 303940715}
   - component: {fileID: 303940714}
+  - component: {fileID: 303940717}
   m_Layer: 5
   m_Name: Return to Menu
   m_TagString: Untagged
@@ -1248,6 +1261,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 303940712}
   m_CullTransparentMesh: 1
+--- !u!114 &303940717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303940712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6934eaabc7257c043ba5bfb2be009e9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  b_signUp: {fileID: 0}
+  b_Submit: {fileID: 0}
+  parent_AccType: {fileID: 0}
+  parent_TeacherAcc: {fileID: 0}
+  parent_StudentAcc: {fileID: 0}
+  err_Username: {fileID: 0}
+  err_Password: {fileID: 0}
+  err_ConfPass_Teacher: {fileID: 0}
+  err_ConfPass_Student: {fileID: 0}
+  err_ClassCode: {fileID: 0}
 --- !u!1001 &308481360
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
 
+
 public class UserAuth : MonoBehaviour
 {
 
@@ -17,21 +18,28 @@ public class UserAuth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Clears any potential lingering user auth data
-        if (PlayerPrefs.HasKey("username"))
+        
+        
+        if ((SceneManager.GetActiveScene().name == "Log In"))
         {
-            PlayerPrefs.DeleteKey("username");
+            parent_AccType.SetActive(false);
+            parent_StudentAcc.SetActive(false);
+            parent_TeacherAcc.SetActive(false);
+
+            err_Username.SetActive(false);
+            err_Password.SetActive(false);
+            err_ConfPass_Teacher.SetActive(false);
+            err_ConfPass_Student.SetActive(false);
+            err_ClassCode.SetActive(false);
+            
+            //Clears any potential lingering user auth data
+            if (PlayerPrefs.HasKey("username"))
+            {
+                PlayerPrefs.DeleteKey("username");
+            }
+
+
         }
-
-        parent_AccType.SetActive(false);
-        parent_StudentAcc.SetActive(false);
-        parent_TeacherAcc.SetActive(false);
-
-        err_Username.SetActive(false);
-        err_Password.SetActive(false);
-        err_ConfPass_Teacher.SetActive(false);
-        err_ConfPass_Student.SetActive(false);
-        err_ClassCode.SetActive(false);
         
     }
 
