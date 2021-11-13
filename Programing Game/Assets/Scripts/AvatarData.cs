@@ -24,7 +24,14 @@ public class AvatarData : MonoBehaviour
         
         if (isBackdrop)
         {
-            playerController.enabled = false;            
+            playerController.enabled = false;
+
+            //gets random avatar for login scene
+            if (SceneManager.GetActiveScene().name == "Log in")
+            {
+                index = Random.Range(0, 4);
+            }
+                       
         }
         
     }
@@ -32,15 +39,12 @@ public class AvatarData : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //gets current scene and gets player avatar if not log in scene else gets random avatar
+        //gets current scene and gets player avatar if not log in scene
         if (SceneManager.GetActiveScene().name != "Log in") 
         {
             index = player.GetComponent<Database>().currUser.avatarID;
         }
-        else
-        {
-            index = Random.Range(0, 4);
-        }
+        
        
         player.GetComponent<Animator>().runtimeAnimatorController = avatars[index];
     }

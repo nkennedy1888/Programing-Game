@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ghost Battle
+  m_Controller: {fileID: 9100000, guid: 2638cb4536d76624e81c7da23de8d495, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: cad3caef787062fdbbfd32f634798c01, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 27a65f41ddd5e6cbc8ffdcabc9973452, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d79f08b7531c708d08e6fa8dc44198a1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: cd491b44aa491914e88aa3ec2b216d8a, type: 2}

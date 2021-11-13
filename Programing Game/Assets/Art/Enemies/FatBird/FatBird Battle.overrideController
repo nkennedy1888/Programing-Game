@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FatBird Battle
+  m_Controller: {fileID: 9100000, guid: 2638cb4536d76624e81c7da23de8d495, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: d79f08b7531c708d08e6fa8dc44198a1, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e78dab31fba065447861a7e8b498c81e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: cad3caef787062fdbbfd32f634798c01, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d08fab1734b498bba86b3a40d0775d14, type: 2}
