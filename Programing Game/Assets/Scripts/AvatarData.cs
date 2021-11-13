@@ -12,7 +12,7 @@ public class AvatarData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //gets current scene and disables player movement if not the battle scene
         if (SceneManager.GetActiveScene().name == "Battle")
         {
             isBackdrop = false;
@@ -24,23 +24,24 @@ public class AvatarData : MonoBehaviour
         
         if (isBackdrop)
         {
-            playerController.enabled = false;
-
-            index = Random.Range(0, 4);
+            playerController.enabled = false;            
         }
-        // isBackdrop = GameObject.FindGameObjectWithTag("Backdrop").activeInHierarchy;
-
-        //Debug.Log(GameObject.FindGameObjectWithTag("Backdrop"));
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        index = player.GetComponent<Database>().currUser.avatarID;
-
-        
-
+        //gets current scene and gets player avatar if not log in scene else gets random avatar
+        if (SceneManager.GetActiveScene().name != "Log in") 
+        {
+            index = player.GetComponent<Database>().currUser.avatarID;
+        }
+        else
+        {
+            index = Random.Range(0, 4);
+        }
+       
         player.GetComponent<Animator>().runtimeAnimatorController = avatars[index];
     }
 }

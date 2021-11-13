@@ -4,51 +4,49 @@ using UnityEngine;
 
 public class Database : MonoBehaviour
 {
-    //public List<UserData> users = new List<UserData>();
+    
     private new string  name;
     [HideInInspector]public UserData currUser;
-    //private bool isfound = false;
-
-    Dictionary<string, UserData> users2= new Dictionary<string, UserData>();
+    
+    Dictionary<string, UserData> users= new Dictionary<string, UserData>();
 
 
     public void Start()
     {
-        name = PlayerPrefs.GetString("name");
-
+        //gets data from save file when a new scene loads
+        users = SaveData.LoadData();
+        //gets current users name from system
+        name = PlayerPrefs.GetString("username");
+        //sets current users data to defualt
         currUser = new UserData(name, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-        if (users2.ContainsKey(name)) 
+        //checks if user exists in database alread
+        if (users.ContainsKey(name)) 
         {
-            currUser = users2[name];
-
+            //sets current users data to correct data from database
+            currUser = users[name];
         }
         else 
         {
-            users2.Add(name, currUser);
+            //adds current user as a new database entry
+            users.Add(name, currUser);
+            //saves update
+            SaveData.SaveGame(users);
         
         }
 
-       // for (int i = 0; i < users.Count; i++)
-       // {
-       //    if (users[i].username.Equals(name)) 
-       //     {
-       //         currUser = users[i];
-       //         isfound = true;
-       //         break;
-       //     }
-       // }
-       //
-       // if (!isfound)
-       // {
-       //     currUser = new UserData(name, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-       //     users.Add(currUser);
-       //
-       // }
+       
         
     }
     public void Update()
     {
         
+    }
+
+    public void OnDestroy()
+    {
+        //saves user data when scene is changed in game
+        users[name] = currUser;
+        SaveData.SaveGame(users);
     }
 }

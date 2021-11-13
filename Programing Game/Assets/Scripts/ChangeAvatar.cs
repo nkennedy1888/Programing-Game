@@ -10,11 +10,13 @@ public class ChangeAvatar : MonoBehaviour
 
     private void Update()
     {
+        //gets number of avatars to choose from
         avatars = GameObject.FindGameObjectWithTag("Player").GetComponent<AvatarData>().avatars.Length - 1;
     }
 
     public void ChangePlayer() 
     {
+        //updates the avatarID for current user when called
         user = GameObject.FindGameObjectWithTag("Player").GetComponent<Database>().currUser;
         index = user.avatarID;
 

@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class UserData
 {
+    //this class makes a unique data type for with in the game
     public string username;
     public float progressBeginner;
     public float progressIntermediate;
@@ -19,6 +20,7 @@ public class UserData
 
     public UserData(string name, int avatar, float progBeg, float progInt, float progAdv, int qCBeg, int qWBeg, int qCInt, int qWInt, int qCAdv, int qWAdv)
     {
+        // this is a constructor for the data type
         username = name;
         progressBeginner = progBeg;
         progressIntermediate = progInt;
