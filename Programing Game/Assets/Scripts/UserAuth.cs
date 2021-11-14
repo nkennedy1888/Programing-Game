@@ -9,15 +9,38 @@ public class UserAuth : MonoBehaviour
 {
 
     public GameObject b_signUp, b_Submit, parent_AccType, parent_TeacherAcc, parent_StudentAcc;
-    private string currUser, currPassword, confirmPass, classCode;
-    private bool student = false, teacher = false;
+    public GameObject err_Username, err_Password, err_ConfPass_Teacher, err_ConfPass_Student, err_ClassCode;
+    private string currUser, currPassword, confirmPass, classCode, accType;
     private string path = "Assets/SaveData/users.txt";
+
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        parent_AccType.SetActive(false);
-        parent_StudentAcc.SetActive(false);
-        parent_TeacherAcc.SetActive(false);
+        
+        
+        if ((SceneManager.GetActiveScene().name == "Log In"))
+        {
+            parent_AccType.SetActive(false);
+            parent_StudentAcc.SetActive(false);
+            parent_TeacherAcc.SetActive(false);
+
+            err_Username.SetActive(false);
+            err_Password.SetActive(false);
+            err_ConfPass_Teacher.SetActive(false);
+            err_ConfPass_Student.SetActive(false);
+            err_ClassCode.SetActive(false);
+            
+            //Clears any potential lingering user auth data
+            if (PlayerPrefs.HasKey("username"))
+            {
+                PlayerPrefs.DeleteKey("username");
+            }
+
+
+        }
+        
     }
 
     // Update is called once per frame
@@ -48,6 +71,7 @@ public class UserAuth : MonoBehaviour
         classCode = temp;
     }
 
+    //Activates account type selection fields
     public void AccountType()
     {
         b_Submit.SetActive(false);
@@ -55,16 +79,18 @@ public class UserAuth : MonoBehaviour
         parent_AccType.SetActive(true);   
     }
 
+    //IsStudent and IsTeacher used for account creation; defines account type based on user selection
     public void IsStudent()
     {
-        student = true;
+        accType = "student";
         parent_AccType.SetActive(false);
         parent_StudentAcc.SetActive(true);
     }
 
+    
     public void IsTeacher()
     {
-        teacher = true;
+        accType = "teacher";
         parent_AccType.SetActive(false);
         parent_TeacherAcc.SetActive(true);
     }
@@ -77,110 +103,377 @@ public class UserAuth : MonoBehaviour
         if (currUser == "" || currPassword == "")
         {
             Debug.Log("Please enter a unique user-name and password");
+            err_Password.SetActive(true);
             return;
         }
 
         if (!currPassword.Equals(confirmPass))
         {
             Debug.Log("Passwords do not match");
+            err_Password.SetActive(true);
             return;
         }
 
-        //Check currUser against existing usernames to ensure no duplicate(s)
-        if (File.Exists(path))
+        string userEntry;
+        //bool recentFileCreate = false;
+        //StreamWriter writer = new StreamWriter(path);
+        if (!File.Exists(path))
         {
-            
-            Debug.Log("file check worked");
+            File.Create(path);
+            //recentFileCreate = true;
+        }
+        /*
+         * {
+         * type: //STUDENT or TEACHER
+         * name: //Defined by user input
+         * pass: //Defined by user input
+         * code: //Based on existing teacher codes, still defined by user input
+         * },//Concludes one account listing
+         * {
+         * type: STUDENT
+         * name: Wawa central
+         * pass: wawa
+         * code: 21212 //code for STUDENT indicates which teacher/class they belong to
+         * },
+         * {
+         * type: TEACHER
+         * name: rock
+         * pass: johnson
+         * code: 12122 //code for TEACHER indicates their class
+         * }//No comma indicates end of file
+         */
 
-            string line;
-            StreamReader reader = new StreamReader(path);
 
-            while ((line = reader.ReadLine()) != null && line != "")
+        if (!Compare("name", currUser))
+        {
+
+            if (classCode == null)
             {
-                //Important to note: a substring of the format .substring(startIndex, endIndex) is not available in C#, so the condition below finds proper length to get the username substring
-                //Debug.Log("Username in parsers current line: " +line.Substring(line.IndexOf("] : <") + 5, (line.IndexOf("> :") - (line.IndexOf("] : <") + 5))));
-                if (line.Substring(line.IndexOf("] : <") + 5, (line.IndexOf("> :") - (line.IndexOf("] : <") + 5))).Equals(currUser))
-                {
-                    Debug.Log("Duplicate username; enter unique username");
-                    reader.Close();
-                    return;                 
-                }
+                classCode = "";
             }
-            reader.Close();
+            //if (recentFileCreate) { userEntry = "\n";}
+
+            userEntry =
+                "{" +
+                "\nname: " + currUser +
+                "\npass: " + currPassword +
+                "\ntype: " + accType +
+                "\ncode: " + classCode +
+                "\n},";
+            StreamWriter writer = new StreamWriter(path, true);
+
+            writer.WriteLine(userEntry);
+            writer.Close();
+        }
+
+        if (accType.Equals("teacher"))
+        {
+            SetUsername(currUser);
+            SceneManager.LoadScene("Main - Teacher");
         }
         else
         {
-            File.Create(path).Close();
-        }
-
-        //Note: will need to implement a more secure solution
-        //Stores entered user data in users.txt according to the following format:
-        /*
-         * 
-         * [STUDENT] : <username> : <password> : <code>
-         * [TEACHER] : <username> : <password>
-         * 
-         */
-
-        string userEntry = "";
-        
-        if (student)
-        {
-            userEntry = "[STUDENT] : <" + currUser + "> : <" + currPassword + "> : <" + classCode + ">";
-        }
-        else if (teacher)
-        {
-            userEntry = "[TEACHER] : <" + currUser + "> : <" + currPassword + ">";
-        }
-        else { Debug.Log("UserAuth.CreateAccount() has experienced an error in student/teacher determination"); }
-        
-        
-        StreamWriter writer = new StreamWriter(path, true);
-
-        writer.WriteLine(userEntry);
-        writer.Close();
-
-        if (student)
-        {
+            SetUsername(currUser);
             SceneManager.LoadScene("Main - Student");
         }
-        else if (teacher)
-        {
-            SceneManager.LoadScene("Main - Teacher");
-        }
-        
+        //Check currUser against existing usernames to ensure no duplicate(s)
+        //if (File.Exists(path))
+        //{
+
+        //    Debug.Log("file check worked");
+
+        //    string line;
+        //    StreamReader reader = new StreamReader(path);
+
+        //    while ((line = reader.ReadLine()) != null && line != "")
+        //    {
+        //        //Important to note: a substring of the format .substring(startIndex, endIndex) is not available in C#, so the condition below finds proper length to get the username substring
+        //        //Debug.Log("Username in parsers current line: " +line.Substring(line.IndexOf("] : <") + 5, (line.IndexOf("> :") - (line.IndexOf("] : <") + 5))));
+        //        if (line.Substring(line.IndexOf("] : <") + 5, (line.IndexOf("> :") - (line.IndexOf("] : <") + 5))).Equals(currUser))
+        //        {
+        //            Debug.Log("Duplicate username; enter unique username");
+        //            err_Username.SetActive(true);
+        //            reader.Close();
+        //            return;                 
+        //        }
+        //    }
+        //    reader.Close();
+        //}
+        //else
+        //{
+        //    File.Create(path).Close();
+        //}
+
+        ////Note: will need to implement a more secure solution
+        ////Stores entered user data in users.txt according to the following format:
+        ///*
+        // * 
+        // * [STUDENT] : <username> : <password> : <code>
+        // * [TEACHER] : <username> : <password>
+        // * 
+        // */
+
+        //string userEntry = "";
+
+        //if (student)
+        //{
+        //    userEntry = "[STUDENT] : <" + currUser + "> : <" + currPassword + "> : <" + classCode + ">";
+        //}
+        //else if (teacher)
+        //{
+        //    userEntry = "[TEACHER] : <" + currUser + "> : <" + currPassword + ">";
+        //}
+        //else { Debug.Log("UserAuth.CreateAccount() has experienced an error in student/teacher determination"); }
+
+
+        //StreamWriter writer = new StreamWriter(path, true);
+
+        //writer.WriteLine(userEntry);
+        //writer.Close();
+
+        //if (student)
+        //{
+        //    SceneManager.LoadScene("Main - Student");
+        //}
+        //else if (teacher)
+        //{
+        //    SceneManager.LoadScene("Main - Teacher");
+        //}
+
 
     }
 
+    //Need to add functionality to cross-reference whether user is student or teacher
     public void Login()
     {
+        
         Debug.Log("User: " + currUser + "Password: " + currPassword);
         if (currUser == "" || currPassword == "")
         {
             Debug.Log("Please enter your user-name and password");
+            err_Password.SetActive(true);
             return;
         }
 
+        string passInFile = "";
+        string line;
+        StreamReader reader = new StreamReader(path);
+
+        while ((line = reader.ReadLine()) != null && line != "")
+        {
+            if (line.StartsWith("name") && line.Substring(line.IndexOf(":") + 2).Equals(currUser))
+            {
+                line = reader.ReadLine();
+                passInFile = line.Substring(line.IndexOf(":") + 2);
+                Debug.Log(passInFile);
+                SetUsername(currUser);
+                break;
+            }
+        }
+        reader.Close();
+
+        if (File.Exists(path) && !passInFile.Equals("") && currPassword.Equals(passInFile))
+        {
+            
+            if (GetAccTypeFromFile().Equals("teacher"))
+            {
+                //SetUsername(currUser);
+                SceneManager.LoadScene("Main - Teacher");
+            }
+            else if(GetAccTypeFromFile().Equals("student"))
+            {
+                //SetUsername(currUser);
+                SceneManager.LoadScene("Main - Student");
+            }
+            else
+            {
+                Debug.Log("An issue has occurred in identifying accType");
+                PlayerPrefs.DeleteKey("username");
+                return;
+            }
+
+        }
+        else
+        {
+            Debug.Log("Password mismatch");
+        }
+
+    }
+
+    string GetPasswordFromFile()
+    {
+        string pass = "";
+        string line;
+        
+        StreamReader reader = new StreamReader(path);
+
+        while ((line = reader.ReadLine()) != null && line != "")
+        {
+            if(line.StartsWith("name") && line.Substring(line.IndexOf(":") + 2).Equals(GetUsername()))
+            {
+                line = reader.ReadLine();
+                pass = line.Substring(line.IndexOf(":") + 2);
+                break;
+            }
+        }
+        reader.Close();
+        return pass;
+    }
+
+    //Write current users password input to users.txt
+    void SetPassword(string temp)
+    {
+
+    }
+
+    //Write current users password input to users.txt and PlayerPrefs for persistence across scenes
+    public void SetUsername(string temp)
+    {
+        PlayerPrefs.SetString("username", temp);
+    }
+    //Read current username from PlayerPrefs; 
+    public string GetUsername()
+    {
+        return PlayerPrefs.GetString("username");
+    }
+
+    ////Writes defined account type to users.txt; action done during acc creation
+    //void SetAccType()
+    //{
+
+    //}
+
+    //Reads account type from users.txt, uses GetUsername() to find appropriate account
+    string GetAccTypeFromFile()
+    {
+        string type = "";
+        string line;
+
+        StreamReader reader = new StreamReader(path);
+
+        while ((line = reader.ReadLine()) != null && line != "")
+        {
+            if (line.StartsWith("name") && line.Substring(line.IndexOf(":") + 2).Equals(GetUsername()))
+            {
+                reader.ReadLine();
+                line = reader.ReadLine();
+                type = line.Substring(line.IndexOf(":") + 2);
+            }
+        }
+        reader.Close();
+        return type;
+    }
+
+    ////Unnecessary?
+    //bool IsStudent()
+    //{
+    //    return true;
+    //}
+
+    //bool IsTeacher()
+    //{
+    //    return true;
+    //}
+
+    bool Compare(string key, string value)
+    {
         if (File.Exists(path))
         {
             string line;
-            StreamReader reader = new StreamReader(path);
+            StreamReader compReader = new StreamReader(path);
 
-            while ((line = reader.ReadLine()) != null)
+            while ((line = compReader.ReadLine()) != null && line != "")
             {
-                if (line.Contains(currUser) && line.Contains(currPassword))
+                if (line.StartsWith(key) && line.Substring(line.IndexOf(":") + 2).Equals(value))
                 {
-                    PlayerPrefs.SetString("name", currUser);
-                    SceneManager.LoadScene("Main - Student");
-                    reader.Close();
-                    return;
+                    compReader.Close();
+                    return true;
+                }
+                else
+                {
+                    continue;
                 }
             }
-            reader.Close();
-
-            Debug.Log("Entered account does not exist");
-            return;
+            compReader.Close();
         }
+        else
+        {
+            //No file exists; return false regardless of input
+            return false;
+        }
+
+        return false;
+    }
+
+
+    //Self-evident; creates an account with the given input parameters and formats the input to the given comment below
+    //void CreateAccount(string type, string name, string pass, string code)
+    //{
+    //    string userEntry;
+    //    bool recentFileCreate = false;
+    //    //StreamWriter writer = new StreamWriter(path);
+    //    if (!File.Exists(path))
+    //    {
+    //        File.Create(path);
+    //        recentFileCreate = true;
+    //    }
+    //    /*
+    //     * {
+    //     * type: //STUDENT or TEACHER
+    //     * name: //Defined by user input
+    //     * pass: //Defined by user input
+    //     * code: //Based on existing teacher codes, still defined by user input
+    //     * },//Concludes one account listing
+    //     * {
+    //     * type: STUDENT
+    //     * name: Wawa central
+    //     * pass: wawa
+    //     * code: 21212 //code for STUDENT indicates which teacher/class they belong to
+    //     * },
+    //     * {
+    //     * type: TEACHER
+    //     * name: rock
+    //     * pass: johnson
+    //     * code: 12122 //code for TEACHER indicates their class
+    //     * }//No comma indicates end of file
+    //     */
+
+    //    if (!Compare("name", name))
+    //    {
+
+    //        if (code == null)
+    //        {
+    //            code = "";
+    //        }
+    //        //if (recentFileCreate) { userEntry = "\n";}
+
+    //        userEntry =
+    //            "{" +
+    //            "type: " + type +
+    //            "name: " + name +
+    //            "pass: " + pass +
+    //            "code: " + code +
+    //            "},";
+
+    //        File.WriteAllText(path, userEntry);
+
+    //    }
+
+
+
+    //}
+
+
+    //Removes current user entry from playerprefs; redirects to login scene
+    public void LogOut()
+    {
+        PlayerPrefs.DeleteKey("username");
+        SceneManager.LoadScene("Log In");
+    }
+
+    //Delete all account details from users.txt; call LogOut() to finalize
+    void DeleteAccount(string name, string pass)
+    {
 
     }
 }

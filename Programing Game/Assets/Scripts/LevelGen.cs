@@ -38,8 +38,7 @@ public class LevelGen : MonoBehaviour
         Instantiate(templates.leftBot[color], new Vector3(0.5f, -.5f, 0), Quaternion.identity, platform.transform);
         //Set for last tile spawned
         prev = spawn;
-        //Spawn Player
-        Instantiate(player, new Vector3(0.5f, 1.5f, 0), Quaternion.identity);
+       
 
     }
 

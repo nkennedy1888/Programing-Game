@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     public Collider2D objectCollider;
+    public Collider2D wallCollider;
     public Collider2D anotherCollider;
 
     // Start is called before the first frame update
@@ -30,26 +31,33 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(hDirection * 6, rb.velocity.y);
             transform.localScale = new Vector2(1, 1);
-            
         }
 
         else if (hDirection < 0)
         {
             rb.velocity = new Vector2(hDirection * 6, rb.velocity.y);
-            transform.localScale = new Vector2(-1, 1);
-            
+            transform.localScale = new Vector2(-1, 1);         
         }
 
        else
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-           
+            rb.velocity = new Vector2(0, rb.velocity.y);          
         }
        
 
-        if (objectCollider.IsTouching(anotherCollider) && Input.GetKeyDown(KeyCode.Space))
+        if ((objectCollider.IsTouching(anotherCollider) || anim.GetBool("isWalling")) && Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = new Vector2(rb.velocity.x, 8f);
+        }
+
+        if (wallCollider.IsTouching(anotherCollider) && !objectCollider.IsTouching(anotherCollider))
+        {
+            anim.SetBool("isWalling", true);
+
+        }
+        else
+        {
+            anim.SetBool("isWalling", false);
         }
     }
 }
