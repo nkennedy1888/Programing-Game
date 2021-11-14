@@ -121,7 +121,7 @@ MonoBehaviour:
   maxX: 58
   maxY: 27
   maxJump: 4
-  finish: {fileID: 0}
+  finish: {fileID: 2913820659485452655, guid: c9765bb877993eb40a3926ed62e98ace, type: 3}
   player: {fileID: 0}
   enemy:
   - {fileID: 620222304480051088, guid: 7ba35de6371b31840b45fe6d506c6a19, type: 3}

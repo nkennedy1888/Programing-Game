@@ -36,7 +36,7 @@ public class LevelGen : MonoBehaviour
         //Chose platform color
         color = Random.Range(0, 4);
 
-        enemies = Random.Range(4, 10);
+        enemies = Random.Range(4, 11);
 
         //Set spawn location and name Start
         GameObject spawn = Instantiate(templates.left[color], new Vector3(0.5f,0.5f,0), Quaternion.identity, platform.transform);
@@ -84,7 +84,7 @@ public class LevelGen : MonoBehaviour
         }
 
         //Makes sure the last tile is a right tile
-        if (x >= maxX-1 && x < maxX + 1 && prev.tag != "Right") 
+        if (x >= maxX && x < maxX + 1 && prev.tag != "Right") 
         {
             x++;
             Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
@@ -95,54 +95,37 @@ public class LevelGen : MonoBehaviour
             }
         }
 
-        if (x >= maxX-1 && x <= maxX +1 && prev.tag == "Right")
+        if (x >= maxX && x <= maxX +1 && prev.tag == "Right")
         {
             x++;
-            Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+            Instantiate(templates.middle[color], new Vector3(0.5f + x - 2, 0.5f + y, 0), Quaternion.identity, platform.transform);
             for (float i = -.5f; i <= y; i++)
             {
-                Instantiate(templates.middleBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
+                Instantiate(templates.middleBot[color], new Vector3(0.5f + x - 2, i, 0), Quaternion.identity, platform.transform);
             }
 
-            Instantiate(templates.right[color], new Vector3(0.5f + x + 1, 0.5f + y, 0), Quaternion.identity, platform.transform);
-            Instantiate(finish, new Vector3(0.5f + x + 1, 0.5f + y + 1, 0), Quaternion.identity, platform.transform);
+            Instantiate(templates.right[color], new Vector3(0.5f + x - 1, 0.5f + y, 0), Quaternion.identity, platform.transform);
+            Instantiate(finish, new Vector3(0.5f + x - 1, 0.5f + y + 1, 0), Quaternion.identity, platform.transform);
             for (float i = -.5f; i <= y; i++)
             {
-                Instantiate(templates.rightBot[color], new Vector3(0.5f + x + 1, i, 0), Quaternion.identity, platform.transform);
+                Instantiate(templates.rightBot[color], new Vector3(0.5f + x - 1, i, 0), Quaternion.identity, platform.transform);
             }
         }
 
         //spawns random enemies
-        while (numEnemy <= enemies)
+        while (numEnemy < enemies)
         {
             GameObject[] middles = GameObject.FindGameObjectsWithTag("Middle");
-            GameObject[] nearestEnemy = GameObject.FindGameObjectsWithTag("Enemy");
-            int index = Random.Range(4, middles.Length);
-
-            if (numEnemy != 0)
-            {
-                for (int i = 0; i < nearestEnemy.Length; i++)
-                {
-                    if ((nearestEnemy[i].transform.position.x < middles[index].transform.position.x - 2) || (nearestEnemy[i].transform.position.x > middles[index].transform.position.x + 2))
-                    {
-                        SpawnEnemy(middles[index]);
-                        numEnemy++;
-                        break;
-                    }
-                    else
-                    {
-                        index = Random.Range(4, middles.Length);
-                    }
-                }
+            
+               
+            for (int i = 4; i <middles.Length; i++)               
+            {                                         
+                    SpawnEnemy(middles[i]);                       
+                    numEnemy++;                   
+                    i += Random.Range(2,6);                                 
             }
-            else
-            {
-                SpawnEnemy(middles[index]);
-                numEnemy++;
-            }
-
+            
         }
-
     }
 
     //Select the spawn point and type for next tile

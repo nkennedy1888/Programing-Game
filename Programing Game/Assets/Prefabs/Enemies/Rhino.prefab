@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3882793646565277366}
   - component: {fileID: 6957799146464358402}
   - component: {fileID: 712670731939261125}
-  - component: {fileID: 4475460250725735929}
   m_Layer: 0
   m_Name: Rhino
   m_TagString: Enemy
@@ -132,7 +131,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &712670731939261125
 Animator:
   serializedVersion: 3
@@ -152,15 +151,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4475460250725735929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9045330769691399474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48785b3db44ff2b48bf732e917668643, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
