@@ -12,6 +12,7 @@ public class LevelGen : MonoBehaviour
     public int maxJump;
     public GameObject finish;
     public GameObject player;
+    public GameObject[] enemy;
     private GameObject platform;
     private PlatformTemplates templates;
     [HideInInspector] public int color;
@@ -19,6 +20,9 @@ public class LevelGen : MonoBehaviour
     private GameObject prev;   
     private int x = 0;      
     private int y = 0;
+    private int enemies;
+    private int numEnemy = 0;
+    
 
     //public GameObject Brick;
 
@@ -31,6 +35,8 @@ public class LevelGen : MonoBehaviour
         templates = GameObject.FindGameObjectWithTag("Platform").GetComponent<PlatformTemplates>();
         //Chose platform color
         color = Random.Range(0, 4);
+
+        enemies = Random.Range(4, 10);
 
         //Set spawn location and name Start
         GameObject spawn = Instantiate(templates.left[color], new Vector3(0.5f,0.5f,0), Quaternion.identity, platform.transform);
@@ -78,7 +84,7 @@ public class LevelGen : MonoBehaviour
         }
 
         //Makes sure the last tile is a right tile
-        if (x >= maxX && x < maxX + 1 && prev.tag != "Right") 
+        if (x >= maxX-1 && x < maxX + 1 && prev.tag != "Right") 
         {
             x++;
             Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
@@ -89,7 +95,7 @@ public class LevelGen : MonoBehaviour
             }
         }
 
-        if (x >= maxX && x < maxX + 1 && prev.tag == "Right")
+        if (x >= maxX-1 && x <= maxX +1 && prev.tag == "Right")
         {
             x++;
             Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
@@ -104,6 +110,37 @@ public class LevelGen : MonoBehaviour
             {
                 Instantiate(templates.rightBot[color], new Vector3(0.5f + x + 1, i, 0), Quaternion.identity, platform.transform);
             }
+        }
+
+        //spawns random enemies
+        while (numEnemy <= enemies)
+        {
+            GameObject[] middles = GameObject.FindGameObjectsWithTag("Middle");
+            GameObject[] nearestEnemy = GameObject.FindGameObjectsWithTag("Enemy");
+            int index = Random.Range(4, middles.Length);
+
+            if (numEnemy != 0)
+            {
+                for (int i = 0; i < nearestEnemy.Length; i++)
+                {
+                    if ((nearestEnemy[i].transform.position.x < middles[index].transform.position.x - 2) || (nearestEnemy[i].transform.position.x > middles[index].transform.position.x + 2))
+                    {
+                        SpawnEnemy(middles[index]);
+                        numEnemy++;
+                        break;
+                    }
+                    else
+                    {
+                        index = Random.Range(4, middles.Length);
+                    }
+                }
+            }
+            else
+            {
+                SpawnEnemy(middles[index]);
+                numEnemy++;
+            }
+
         }
 
     }
@@ -136,10 +173,6 @@ public class LevelGen : MonoBehaviour
                 else 
                 {
                     prevtag = Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
-                    /*for (float i = -.5f; i <= y; i++)
-                    {
-                        Instantiate(templates.rightBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
-                    }*/
                 }
             }
             else 
@@ -215,18 +248,11 @@ public class LevelGen : MonoBehaviour
         Instantiate(templates.floatRight[color], new Vector3(0.5f + maxX + 1, -1.5f + maxY + 2, 0), Quaternion.identity, platform.transform);
     }
 
-    /*Creates Underground Dirt
-    if(GameObject.FindWithTag("Left") != null)
+   void SpawnEnemy(GameObject plat) 
     {
-        Instantiate(Brick, new Vector3(1, 1, 0), Quaternion.identity);
+        int i = Random.Range(0, enemy.Length);
+        Instantiate(enemy[i], plat.transform.position + new Vector3(0, 1, 0), Quaternion.identity, platform.transform);        
     }
-    if(GameObject.FindWithTag("Middle") != null)
-    {
 
-    }
-    if(GameObject.FindWithTag("Left") != null)
-    {
-
-    }
-    */
+   
 }
