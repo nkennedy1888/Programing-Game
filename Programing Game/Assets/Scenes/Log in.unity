@@ -2110,6 +2110,8 @@ MonoBehaviour:
   parent_AccType: {fileID: 847950034}
   parent_TeacherAcc: {fileID: 1780910750}
   parent_StudentAcc: {fileID: 2094719795}
+  uName: {fileID: 221316374}
+  uPass: {fileID: 2018402512}
   err_Username: {fileID: 740994862}
   err_Password: {fileID: 2138124415}
   err_ConfPass_Teacher: {fileID: 1716344135}

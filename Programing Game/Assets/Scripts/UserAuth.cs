@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class UserAuth : MonoBehaviour
 {
 
-    public GameObject b_signUp, b_Submit, parent_AccType, parent_TeacherAcc, parent_StudentAcc;
+    public GameObject b_signUp, b_Submit, parent_AccType, parent_TeacherAcc, parent_StudentAcc, uName, uPass;
     public GameObject err_Username, err_Password, err_ConfPass_Teacher, err_ConfPass_Student, err_ClassCode;
     private string currUser, currPassword, confirmPass, classCode, accType;
     private string path = "Assets/SaveData/users.txt";
@@ -20,7 +20,7 @@ public class UserAuth : MonoBehaviour
     {
         
         
-        if ((SceneManager.GetActiveScene().name == "Log In"))
+        if ((SceneManager.GetActiveScene().name == "Log in"))
         {
             parent_AccType.SetActive(false);
             parent_StudentAcc.SetActive(false);
@@ -74,6 +74,8 @@ public class UserAuth : MonoBehaviour
     //Activates account type selection fields
     public void AccountType()
     {
+        uName.SetActive(false);
+        uPass.SetActive(false);
         b_Submit.SetActive(false);
         b_signUp.SetActive(false);
         parent_AccType.SetActive(true);   
@@ -85,6 +87,8 @@ public class UserAuth : MonoBehaviour
         accType = "student";
         parent_AccType.SetActive(false);
         parent_StudentAcc.SetActive(true);
+        uName.SetActive(true);
+        uPass.SetActive(true);
     }
 
     
@@ -93,6 +97,8 @@ public class UserAuth : MonoBehaviour
         accType = "teacher";
         parent_AccType.SetActive(false);
         parent_TeacherAcc.SetActive(true);
+        uName.SetActive(true);
+        uPass.SetActive(true);
     }
 
 
