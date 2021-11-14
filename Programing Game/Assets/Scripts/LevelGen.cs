@@ -38,7 +38,10 @@ public class LevelGen : MonoBehaviour
         Instantiate(templates.leftBot[color], new Vector3(0.5f, -.5f, 0), Quaternion.identity, platform.transform);
         //Set for last tile spawned
         prev = spawn;
+
+        SpawnBoarder();
        
+
 
     }
 
@@ -77,6 +80,10 @@ public class LevelGen : MonoBehaviour
         {
             x++;
             Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+            for (float i = -.5f; i <= y; i++)
+            {
+                Instantiate(templates.rightBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
+            }
         }
        
     }
@@ -128,6 +135,37 @@ public class LevelGen : MonoBehaviour
         }
         GameObject prevtag = prev;
         return prevtag;
+    }
+
+    public void SpawnBoarder() 
+    {
+        Instantiate(templates.sideBot[color], new Vector3(-0.5f, -1.5f, 0), Quaternion.identity, platform.transform);
+        for (int i = 1; i <= maxY + 1; i++)
+        {
+            Instantiate(templates.sideMid[color], new Vector3(-0.5f, -1.5f + i, 0), Quaternion.identity, platform.transform);
+        }
+        Instantiate(templates.sideTop[color], new Vector3(-0.5f, -1.5f + maxY + 2, 0), Quaternion.identity, platform.transform);
+
+        Instantiate(templates.sideBot[color], new Vector3(-0.5f + maxX + 3, -1.5f, 0), Quaternion.identity, platform.transform);
+        for (int i = 1; i <= maxY + 1; i++)
+        {
+            Instantiate(templates.sideMid[color], new Vector3(-0.5f + maxX + 3, -1.5f + i, 0), Quaternion.identity, platform.transform);
+        }
+        Instantiate(templates.sideTop[color], new Vector3(-0.5f + maxX + 3, -1.5f + maxY + 2, 0), Quaternion.identity, platform.transform);
+
+        Instantiate(templates.floatLeft[color], new Vector3(0.5f, -1.5f, 0), Quaternion.identity, platform.transform);
+        for (int i = 1; i <= maxX; i++)
+        {
+            Instantiate(templates.floatMid[color], new Vector3(0.5f + i, -1.5f, 0), Quaternion.identity, platform.transform);
+        }
+        Instantiate(templates.floatRight[color], new Vector3(0.5f + maxX + 1, -1.5f, 0), Quaternion.identity, platform.transform);
+
+        Instantiate(templates.floatLeft[color], new Vector3(0.5f, -1.5f + maxY + 2, 0), Quaternion.identity, platform.transform);
+        for (int i = 1; i <= maxX; i++)
+        {
+            Instantiate(templates.floatMid[color], new Vector3(0.5f + i, -1.5f + maxY + 2, 0), Quaternion.identity, platform.transform);
+        }
+        Instantiate(templates.floatRight[color], new Vector3(0.5f + maxX + 1, -1.5f + maxY + 2, 0), Quaternion.identity, platform.transform);
     }
 
     /*Creates Underground Dirt
