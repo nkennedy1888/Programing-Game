@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class UserAuth : MonoBehaviour
@@ -105,18 +106,20 @@ public class UserAuth : MonoBehaviour
     public void CreateAccount()
     {
         
-        Debug.Log("User: " +currUser +"Password: " +currPassword);
+        //Debug.Log("User: " +currUser +"Password: " +currPassword);
         if (currUser == "" || currPassword == "")
         {
-            Debug.Log("Please enter a unique user-name and password");
+            err_Username.GetComponent<Text>().text = "Please enter a unique user-name and password";
             err_Password.SetActive(true);
+            StartCoroutine(messageTimer(err_Password));
             return;
         }
 
         if (!currPassword.Equals(confirmPass))
         {
-            Debug.Log("Passwords do not match");
+            err_Password.GetComponent<Text>().text = "Passwords do not match";
             err_Password.SetActive(true);
+            StartCoroutine(messageTimer(err_Password));
             return;
         }
 
@@ -253,11 +256,12 @@ public class UserAuth : MonoBehaviour
     public void Login()
     {
         
-        Debug.Log("User: " + currUser + "Password: " + currPassword);
+        //Debug.Log("User: " + currUser + "Password: " + currPassword);
         if (currUser == "" || currPassword == "")
         {
-            Debug.Log("Please enter your user-name and password");
+            err_Password.GetComponent<Text>().text = "Please enter your user-name and password";
             err_Password.SetActive(true);
+            StartCoroutine(messageTimer(err_Password));
             return;
         }
 
@@ -271,7 +275,7 @@ public class UserAuth : MonoBehaviour
             {
                 line = reader.ReadLine();
                 passInFile = line.Substring(line.IndexOf(":") + 2);
-                Debug.Log(passInFile);
+                //Debug.Log(passInFile);
                 SetUsername(currUser);
                 break;
             }
@@ -293,7 +297,9 @@ public class UserAuth : MonoBehaviour
             }
             else
             {
-                Debug.Log("An issue has occurred in identifying accType");
+                err_Password.GetComponent<Text>().text = "An issue has occurred in identifying accType";
+                err_Password.SetActive(true);
+                StartCoroutine(messageTimer(err_Password));
                 PlayerPrefs.DeleteKey("username");
                 return;
             }
@@ -301,7 +307,10 @@ public class UserAuth : MonoBehaviour
         }
         else
         {
-            Debug.Log("Password mismatch");
+            err_Password.GetComponent<Text>().text = "Password mismatch";
+            err_Password.SetActive(true);
+            StartCoroutine(messageTimer(err_Password));
+            return;
         }
 
     }
@@ -481,5 +490,11 @@ public class UserAuth : MonoBehaviour
     void DeleteAccount(string name, string pass)
     {
 
+    }
+
+    public IEnumerator messageTimer(GameObject message)
+    {
+        yield return new WaitForSeconds(2f);
+        message.gameObject.SetActive(false);
     }
 }

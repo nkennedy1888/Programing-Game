@@ -1414,6 +1414,8 @@ MonoBehaviour:
   parent_AccType: {fileID: 0}
   parent_TeacherAcc: {fileID: 0}
   parent_StudentAcc: {fileID: 0}
+  uName: {fileID: 0}
+  uPass: {fileID: 0}
   err_Username: {fileID: 0}
   err_Password: {fileID: 0}
   err_ConfPass_Teacher: {fileID: 0}
@@ -2032,7 +2034,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 909683589}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.19, y: 2.6, z: -10}
+  m_LocalPosition: {x: 17.308842, y: 11.870338, z: -90.21879}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4500,6 +4502,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5356870084560180214, guid: efafaa86cc37d3a46b790752d7083855, type: 3}
+      propertyPath: finish
+      value: 
+      objectReference: {fileID: 2913820659485452655, guid: c9765bb877993eb40a3926ed62e98ace, type: 3}
     - target: {fileID: 5356870084560180214, guid: efafaa86cc37d3a46b790752d7083855, type: 3}
       propertyPath: player
       value: 

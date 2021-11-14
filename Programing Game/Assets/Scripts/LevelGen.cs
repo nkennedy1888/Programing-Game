@@ -10,7 +10,7 @@ public class LevelGen : MonoBehaviour
 
     //Set players jump hight
     public int maxJump;
-
+    public GameObject finish;
     public GameObject player;
     private GameObject platform;
     private PlatformTemplates templates;
@@ -50,7 +50,8 @@ public class LevelGen : MonoBehaviour
     {
         //Get next tile spawn location
         while (x < maxX && y < maxY)
-        {       
+        {
+            GameObject prev2 = prev;
             if (prev.tag == "Right")       
             {
                 int ytemp = y;       
@@ -72,6 +73,7 @@ public class LevelGen : MonoBehaviour
             x++;
             //spawn new tile and set as last spawn
             prev = spawnTile(prev, x, y);
+            spawnRight(prev, prev2, x, y);
 
         }
 
@@ -80,20 +82,39 @@ public class LevelGen : MonoBehaviour
         {
             x++;
             Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+            Instantiate(finish, new Vector3(0.5f + x, 0.5f + y + 1, 0), Quaternion.identity, platform.transform);
             for (float i = -.5f; i <= y; i++)
             {
                 Instantiate(templates.rightBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
             }
         }
-       
+
+        if (x >= maxX && x < maxX + 1 && prev.tag == "Right")
+        {
+            x++;
+            Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+            for (float i = -.5f; i <= y; i++)
+            {
+                Instantiate(templates.middleBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
+            }
+
+            Instantiate(templates.right[color], new Vector3(0.5f + x + 1, 0.5f + y, 0), Quaternion.identity, platform.transform);
+            Instantiate(finish, new Vector3(0.5f + x + 1, 0.5f + y + 1, 0), Quaternion.identity, platform.transform);
+            for (float i = -.5f; i <= y; i++)
+            {
+                Instantiate(templates.rightBot[color], new Vector3(0.5f + x + 1, i, 0), Quaternion.identity, platform.transform);
+            }
+        }
+
     }
 
     //Select the spawn point and type for next tile
     GameObject spawnTile(GameObject prev, int x, int y)
     {
+        GameObject prevtag = prev;
         if (prev.tag == "Left") 
         {
-            prev =  Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+            prevtag =  Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
             for (float i = -.5f; i<= y; i++)
             {
                 Instantiate(templates.middleBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
@@ -106,7 +127,7 @@ public class LevelGen : MonoBehaviour
                 int r = Random.Range(0, 4);
                 if (r != 0) 
                 {
-                    prev = Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+                    prevtag = Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
                     for (float i = -.5f; i <= y; i++)
                     {
                         Instantiate(templates.middleBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
@@ -114,27 +135,53 @@ public class LevelGen : MonoBehaviour
                 }
                 else 
                 {
-                    prev = Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
-                    for (float i = -.5f; i <= y; i++)
+                    prevtag = Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+                    /*for (float i = -.5f; i <= y; i++)
                     {
                         Instantiate(templates.rightBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
-                    }
+                    }*/
                 }
             }
             else 
             {
                 if (prev.tag == "Right") 
                 {                   
-                    prev = Instantiate(templates.left[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+                    prevtag = Instantiate(templates.left[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
                     for (float i = -.5f; i <= y; i++)
                     {
-                        Instantiate(templates.leftBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
+                        if (i >= prev.transform.position.y)
+                        {
+                            Instantiate(templates.leftBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
+                        }
+                        else
+                        {
+                            Instantiate(templates.middleBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
+                        }
+                        
                     }
                 }
             }
         }
-        GameObject prevtag = prev;
         return prevtag;
+    }
+
+    void spawnRight(GameObject curr, GameObject prev, int x, int yNext) 
+    {
+        if (prev.tag == "Right")
+        {            
+            for (float i = -.5f; i < prev.transform.position.y; i++)
+            {
+                if (i >= yNext)
+                {
+                    Instantiate(templates.rightBot[color], new Vector3(0.5f + x - 1, i, 0), Quaternion.identity, platform.transform);
+                }
+                else
+                {
+                    Instantiate(templates.middleBot[color], new Vector3(0.5f + x - 1, i, 0), Quaternion.identity, platform.transform);
+                }
+
+            }
+        }
     }
 
     public void SpawnBoarder() 
