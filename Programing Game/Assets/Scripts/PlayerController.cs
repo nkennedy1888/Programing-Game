@@ -30,20 +30,20 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(hDirection * 6, rb.velocity.y);
             transform.localScale = new Vector2(1, 1);
-            //anim.SetBool("running", true);
+            
         }
 
         else if (hDirection < 0)
         {
             rb.velocity = new Vector2(hDirection * 6, rb.velocity.y);
             transform.localScale = new Vector2(-1, 1);
-            //anim.SetBool("running", true);
+            
         }
 
        else
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
-           // anim.SetBool("running", false);
+           
         }
        
 

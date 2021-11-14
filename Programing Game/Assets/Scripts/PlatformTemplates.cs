@@ -8,5 +8,7 @@ public class PlatformTemplates : MonoBehaviour
     public GameObject[] left;
     public GameObject[] middle;
     public GameObject[] right;
-
+    public GameObject[] leftBot;
+    public GameObject[] middleBot;
+    public GameObject[] rightBot;
 }

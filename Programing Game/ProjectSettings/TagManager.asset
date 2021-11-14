@@ -11,6 +11,9 @@ TagManager:
   - Platform
   - Battlespot
   - Backdrop
+  - LeftBot
+  - RightBot
+  - MiddleBot
   layers:
   - Default
   - TransparentFX

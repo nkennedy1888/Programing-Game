@@ -20,6 +20,8 @@ public class LevelGen : MonoBehaviour
     private int x = 0;      
     private int y = 0;
 
+    //public GameObject Brick;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,11 +30,12 @@ public class LevelGen : MonoBehaviour
         //Get platform templates
         templates = GameObject.FindGameObjectWithTag("Platform").GetComponent<PlatformTemplates>();
         //Chose platform color
-        color = Random.Range(0, templates.left.Length);
+        color = Random.Range(0, 4);
 
         //Set spawn location and name Start
         GameObject spawn = Instantiate(templates.left[color], new Vector3(0.5f,0.5f,0), Quaternion.identity, platform.transform);
         spawn.name = "Start";
+        Instantiate(templates.leftBot[color], new Vector3(0.5f, -.5f, 0), Quaternion.identity, platform.transform);
         //Set for last tile spawned
         prev = spawn;
         //Spawn Player
@@ -84,7 +87,11 @@ public class LevelGen : MonoBehaviour
     {
         if (prev.tag == "Left") 
         {
-          prev =  Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+            prev =  Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+            for (float i = -.5f; i<= y; i++)
+            {
+                Instantiate(templates.middleBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
+            }
         }
         else 
         {
@@ -94,10 +101,18 @@ public class LevelGen : MonoBehaviour
                 if (r != 0) 
                 {
                     prev = Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+                    for (float i = -.5f; i <= y; i++)
+                    {
+                        Instantiate(templates.middleBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
+                    }
                 }
                 else 
                 {
                     prev = Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+                    for (float i = -.5f; i <= y; i++)
+                    {
+                        Instantiate(templates.rightBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
+                    }
                 }
             }
             else 
@@ -105,10 +120,29 @@ public class LevelGen : MonoBehaviour
                 if (prev.tag == "Right") 
                 {                   
                     prev = Instantiate(templates.left[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+                    for (float i = -.5f; i <= y; i++)
+                    {
+                        Instantiate(templates.leftBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
+                    }
                 }
             }
         }
         GameObject prevtag = prev;
         return prevtag;
     }
+
+    /*Creates Underground Dirt
+    if(GameObject.FindWithTag("Left") != null)
+    {
+        Instantiate(Brick, new Vector3(1, 1, 0), Quaternion.identity);
+    }
+    if(GameObject.FindWithTag("Middle") != null)
+    {
+
+    }
+    if(GameObject.FindWithTag("Left") != null)
+    {
+
+    }
+    */
 }
