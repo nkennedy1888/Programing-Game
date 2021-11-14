@@ -77,6 +77,10 @@ public class LevelGen : MonoBehaviour
         {
             x++;
             Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+            for (float i = -.5f; i <= y; i++)
+            {
+                Instantiate(templates.rightBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
+            }
         }
        
     }
