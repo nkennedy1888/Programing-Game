@@ -38,13 +38,13 @@ public class BattleSpot : MonoBehaviour
 
         while (!isfull)
         {
-            Instantiate(tilesPF.left[colorPF], battlespotPF.transform.position + new Vector3(0.5f, 0.5f, 0), Quaternion.identity, battlespotPF.transform);
-            for (int x = 1; x < maxX - 6; x++)
+            Instantiate(tilesPF.floatLeft[colorPF], battlespotPF.transform.position + new Vector3(0.5f, 0.5f, 0), Quaternion.identity, battlespotPF.transform);
+            for (int x = 1; x < maxX - 5; x++)
             {
-                Instantiate(tilesPF.middle[colorPF], battlespotPF.transform.position + new Vector3(0.5f + x, 0.5f, 0), Quaternion.identity, battlespotPF.transform);
+                Instantiate(tilesPF.floatMid[colorPF], battlespotPF.transform.position + new Vector3(0.5f + x, 0.5f, 0), Quaternion.identity, battlespotPF.transform);
             }
 
-            Instantiate(tilesPF.right[colorPF], battlespotPF.transform.position + new Vector3(0.5f + maxX-6, 0.5f, 0), Quaternion.identity, battlespotPF.transform);
+            Instantiate(tilesPF.floatRight[colorPF], battlespotPF.transform.position + new Vector3(0.5f + maxX-5, 0.5f, 0), Quaternion.identity, battlespotPF.transform);
 
             for (int y = 0; y < maxY; y += 4)
             {

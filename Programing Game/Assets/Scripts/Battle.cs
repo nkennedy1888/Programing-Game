@@ -25,13 +25,14 @@ public class Battle : MonoBehaviour
 
     public void Fight() 
     {
+        ScreenFade sf = GameObject.FindGameObjectWithTag("Fader").GetComponent<ScreenFade>();
         isBattle = true;
-
+        StartCoroutine(sf.FadeToBlack());
         player = GameObject.FindGameObjectWithTag("Respawn").transform.GetChild(0).gameObject;
         enemy = GameObject.FindGameObjectWithTag("EnemySpawn").transform.GetChild(0).gameObject;
         battleUI.SetActive(true);
         battleCam.GetComponent<CinemachineVirtualCamera>().Priority = 15;
-
+        StartCoroutine(sf.FadeToClear());
 
     }
 }

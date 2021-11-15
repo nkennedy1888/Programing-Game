@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
 
             this.gameObject.transform.position = enemy.transform.position;
             this.gameObject.transform.SetParent(enemy.transform, true);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().enabled = false;
+            GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerController>().enabled = false;
             GameObject.Find("Battle spot").gameObject.GetComponent<Battle>().Fight();
             
         }
