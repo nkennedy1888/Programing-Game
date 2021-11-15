@@ -18,6 +18,8 @@ TagManager:
   - MiddleFloat
   - LeftFloat
   - RightFloat
+  - EnemySpawn
+  - BattleUI
   layers:
   - Default
   - TransparentFX
