@@ -10,8 +10,9 @@ public class LevelGen : MonoBehaviour
 
     //Set players jump hight
     public int maxJump;
-
+    public GameObject finish;
     public GameObject player;
+    public GameObject[] enemy;
     private GameObject platform;
     private PlatformTemplates templates;
     [HideInInspector] public int color;
@@ -19,6 +20,9 @@ public class LevelGen : MonoBehaviour
     private GameObject prev;   
     private int x = 0;      
     private int y = 0;
+    private int enemies;
+    private int numEnemy = 0;
+    
 
     //public GameObject Brick;
 
@@ -32,13 +36,18 @@ public class LevelGen : MonoBehaviour
         //Chose platform color
         color = Random.Range(0, 4);
 
+        enemies = Random.Range(4, 11);
+
         //Set spawn location and name Start
         GameObject spawn = Instantiate(templates.left[color], new Vector3(0.5f,0.5f,0), Quaternion.identity, platform.transform);
         spawn.name = "Start";
         Instantiate(templates.leftBot[color], new Vector3(0.5f, -.5f, 0), Quaternion.identity, platform.transform);
         //Set for last tile spawned
         prev = spawn;
+
+        SpawnBoarder();
        
+
 
     }
 
@@ -47,7 +56,8 @@ public class LevelGen : MonoBehaviour
     {
         //Get next tile spawn location
         while (x < maxX && y < maxY)
-        {       
+        {
+            GameObject prev2 = prev;
             if (prev.tag == "Right")       
             {
                 int ytemp = y;       
@@ -69,6 +79,7 @@ public class LevelGen : MonoBehaviour
             x++;
             //spawn new tile and set as last spawn
             prev = spawnTile(prev, x, y);
+            spawnRight(prev, prev2, x, y);
 
         }
 
@@ -77,20 +88,53 @@ public class LevelGen : MonoBehaviour
         {
             x++;
             Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+            Instantiate(finish, new Vector3(0.5f + x, 0.5f + y + 1, 0), Quaternion.identity, platform.transform);
             for (float i = -.5f; i <= y; i++)
             {
                 Instantiate(templates.rightBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
             }
         }
-       
+
+        if (x >= maxX && x <= maxX +1 && prev.tag == "Right")
+        {
+            x++;
+            Instantiate(templates.middle[color], new Vector3(0.5f + x - 2, 0.5f + y, 0), Quaternion.identity, platform.transform);
+            for (float i = -.5f; i <= y; i++)
+            {
+                Instantiate(templates.middleBot[color], new Vector3(0.5f + x - 2, i, 0), Quaternion.identity, platform.transform);
+            }
+
+            Instantiate(templates.right[color], new Vector3(0.5f + x - 1, 0.5f + y, 0), Quaternion.identity, platform.transform);
+            Instantiate(finish, new Vector3(0.5f + x - 1, 0.5f + y + 1, 0), Quaternion.identity, platform.transform);
+            for (float i = -.5f; i <= y; i++)
+            {
+                Instantiate(templates.rightBot[color], new Vector3(0.5f + x - 1, i, 0), Quaternion.identity, platform.transform);
+            }
+        }
+
+        //spawns random enemies
+        while (numEnemy < enemies)
+        {
+            GameObject[] middles = GameObject.FindGameObjectsWithTag("Middle");
+            
+               
+            for (int i = 4; i <middles.Length; i++)               
+            {                                         
+                    SpawnEnemy(middles[i]);                       
+                    numEnemy++;                   
+                    i += Random.Range(2,6);                                 
+            }
+            
+        }
     }
 
     //Select the spawn point and type for next tile
     GameObject spawnTile(GameObject prev, int x, int y)
     {
+        GameObject prevtag = prev;
         if (prev.tag == "Left") 
         {
-            prev =  Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+            prevtag =  Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
             for (float i = -.5f; i<= y; i++)
             {
                 Instantiate(templates.middleBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
@@ -103,7 +147,7 @@ public class LevelGen : MonoBehaviour
                 int r = Random.Range(0, 4);
                 if (r != 0) 
                 {
-                    prev = Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+                    prevtag = Instantiate(templates.middle[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
                     for (float i = -.5f; i <= y; i++)
                     {
                         Instantiate(templates.middleBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
@@ -111,41 +155,87 @@ public class LevelGen : MonoBehaviour
                 }
                 else 
                 {
-                    prev = Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
-                    for (float i = -.5f; i <= y; i++)
-                    {
-                        Instantiate(templates.rightBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
-                    }
+                    prevtag = Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
                 }
             }
             else 
             {
                 if (prev.tag == "Right") 
                 {                   
-                    prev = Instantiate(templates.left[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+                    prevtag = Instantiate(templates.left[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
                     for (float i = -.5f; i <= y; i++)
                     {
-                        Instantiate(templates.leftBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
+                        if (i >= prev.transform.position.y)
+                        {
+                            Instantiate(templates.leftBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
+                        }
+                        else
+                        {
+                            Instantiate(templates.middleBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
+                        }
+                        
                     }
                 }
             }
         }
-        GameObject prevtag = prev;
         return prevtag;
     }
 
-    /*Creates Underground Dirt
-    if(GameObject.FindWithTag("Left") != null)
+    void spawnRight(GameObject curr, GameObject prev, int x, int yNext) 
     {
-        Instantiate(Brick, new Vector3(1, 1, 0), Quaternion.identity);
-    }
-    if(GameObject.FindWithTag("Middle") != null)
-    {
+        if (prev.tag == "Right")
+        {            
+            for (float i = -.5f; i < prev.transform.position.y; i++)
+            {
+                if (i >= yNext)
+                {
+                    Instantiate(templates.rightBot[color], new Vector3(0.5f + x - 1, i, 0), Quaternion.identity, platform.transform);
+                }
+                else
+                {
+                    Instantiate(templates.middleBot[color], new Vector3(0.5f + x - 1, i, 0), Quaternion.identity, platform.transform);
+                }
 
+            }
+        }
     }
-    if(GameObject.FindWithTag("Left") != null)
-    {
 
+    public void SpawnBoarder() 
+    {
+        Instantiate(templates.sideBot[color], new Vector3(-0.5f, -1.5f, 0), Quaternion.identity, platform.transform);
+        for (int i = 1; i <= maxY + 1; i++)
+        {
+            Instantiate(templates.sideMid[color], new Vector3(-0.5f, -1.5f + i, 0), Quaternion.identity, platform.transform);
+        }
+        Instantiate(templates.sideTop[color], new Vector3(-0.5f, -1.5f + maxY + 2, 0), Quaternion.identity, platform.transform);
+
+        Instantiate(templates.sideBot[color], new Vector3(-0.5f + maxX + 3, -1.5f, 0), Quaternion.identity, platform.transform);
+        for (int i = 1; i <= maxY + 1; i++)
+        {
+            Instantiate(templates.sideMid[color], new Vector3(-0.5f + maxX + 3, -1.5f + i, 0), Quaternion.identity, platform.transform);
+        }
+        Instantiate(templates.sideTop[color], new Vector3(-0.5f + maxX + 3, -1.5f + maxY + 2, 0), Quaternion.identity, platform.transform);
+
+        Instantiate(templates.floatLeft[color], new Vector3(0.5f, -1.5f, 0), Quaternion.identity, platform.transform);
+        for (int i = 1; i <= maxX; i++)
+        {
+            Instantiate(templates.floatMid[color], new Vector3(0.5f + i, -1.5f, 0), Quaternion.identity, platform.transform);
+        }
+        Instantiate(templates.floatRight[color], new Vector3(0.5f + maxX + 1, -1.5f, 0), Quaternion.identity, platform.transform);
+
+        Instantiate(templates.floatLeft[color], new Vector3(0.5f, -1.5f + maxY + 2, 0), Quaternion.identity, platform.transform);
+        for (int i = 1; i <= maxX; i++)
+        {
+            Instantiate(templates.floatMid[color], new Vector3(0.5f + i, -1.5f + maxY + 2, 0), Quaternion.identity, platform.transform);
+        }
+        Instantiate(templates.floatRight[color], new Vector3(0.5f + maxX + 1, -1.5f + maxY + 2, 0), Quaternion.identity, platform.transform);
     }
-    */
+
+   void SpawnEnemy(GameObject plat) 
+    {
+        int i = Random.Range(0, enemy.Length);
+        Instantiate(enemy[i], plat.transform.position + new Vector3(0, 1, 0), Quaternion.identity, platform.transform);        
+    }
+
+   
 }

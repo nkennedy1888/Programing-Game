@@ -11,4 +11,10 @@ public class PlatformTemplates : MonoBehaviour
     public GameObject[] leftBot;
     public GameObject[] middleBot;
     public GameObject[] rightBot;
+    public GameObject[] sideTop;
+    public GameObject[] sideMid;
+    public GameObject[] sideBot;
+    public GameObject[] floatLeft;
+    public GameObject[] floatMid;
+    public GameObject[] floatRight;
 }

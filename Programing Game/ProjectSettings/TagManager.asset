@@ -14,6 +14,10 @@ TagManager:
   - LeftBot
   - RightBot
   - MiddleBot
+  - Enemy
+  - MiddleFloat
+  - LeftFloat
+  - RightFloat
   layers:
   - Default
   - TransparentFX
