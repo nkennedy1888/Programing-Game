@@ -36,7 +36,7 @@ public class LevelGen : MonoBehaviour
         //Chose platform color
         color = Random.Range(0, 4);
 
-        enemies = Random.Range(4, 11);
+        enemies = Random.Range(4, 7);
 
         //Set spawn location and name Start
         GameObject spawn = Instantiate(templates.left[color], new Vector3(0.5f,0.5f,0), Quaternion.identity, platform.transform);
@@ -84,7 +84,7 @@ public class LevelGen : MonoBehaviour
         }
 
         //Makes sure the last tile is a right tile
-        if (x >= maxX && x < maxX + 1 && prev.tag != "Right") 
+        if (x >= maxX && x < maxX + 1 && prev.tag != "Right")
         {
             x++;
             Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
@@ -94,21 +94,24 @@ public class LevelGen : MonoBehaviour
                 Instantiate(templates.rightBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
             }
         }
-
-        if (x >= maxX && x <= maxX +1 && prev.tag == "Right")
+        else
         {
-            x++;
-            Instantiate(templates.middle[color], new Vector3(0.5f + x - 2, 0.5f + y, 0), Quaternion.identity, platform.transform);
-            for (float i = -.5f; i <= y; i++)
-            {
-                Instantiate(templates.middleBot[color], new Vector3(0.5f + x - 2, i, 0), Quaternion.identity, platform.transform);
-            }
 
-            Instantiate(templates.right[color], new Vector3(0.5f + x - 1, 0.5f + y, 0), Quaternion.identity, platform.transform);
-            Instantiate(finish, new Vector3(0.5f + x - 1, 0.5f + y + 1, 0), Quaternion.identity, platform.transform);
-            for (float i = -.5f; i <= y; i++)
+            if (x >= maxX && x < maxX + 1 && prev.tag == "Right")
             {
-                Instantiate(templates.rightBot[color], new Vector3(0.5f + x - 1, i, 0), Quaternion.identity, platform.transform);
+                x++;
+                Instantiate(templates.middle[color], new Vector3(0.5f + x - 1, 0.5f + y, 0), Quaternion.identity, platform.transform);
+                for (float i = -.5f; i <= y; i++)
+                {
+                    Instantiate(templates.middleBot[color], new Vector3(0.5f + x - 1, i, 0), Quaternion.identity, platform.transform);
+                }
+
+                Instantiate(templates.right[color], new Vector3(0.5f + x, 0.5f + y, 0), Quaternion.identity, platform.transform);
+                Instantiate(finish, new Vector3(0.5f + x, 0.5f + y + 1, 0), Quaternion.identity, platform.transform);
+                for (float i = -.5f; i <= y; i++)
+                {
+                    Instantiate(templates.rightBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
+                }
             }
         }
 
@@ -118,11 +121,16 @@ public class LevelGen : MonoBehaviour
             GameObject[] middles = GameObject.FindGameObjectsWithTag("Middle");
             
                
-            for (int i = 4; i <middles.Length; i++)               
-            {                                         
+            for (int i = 4; i <middles.Length - 4; i++)               
+            {
+                if(!Physics.CheckSphere(middles[i].transform.position, .4f) && !Physics.CheckSphere(middles[i].transform.position + new Vector3(1,0,0), .4f) && !Physics.CheckSphere(middles[i].transform.position + new Vector3(2, 0, 0), .4f)
+                    && !Physics.CheckSphere(middles[i].transform.position + new Vector3(-2, 0, 0), .4f) && !Physics.CheckSphere(middles[i].transform.position + new Vector3(-1, 0, 0), .4f)) 
+                {
                     SpawnEnemy(middles[i]);                       
                     numEnemy++;                   
-                    i += Random.Range(2,6);                                 
+                    i += Random.Range(2,6);
+                }
+                                                     
             }
             
         }
