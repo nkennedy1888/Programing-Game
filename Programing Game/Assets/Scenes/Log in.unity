@@ -2007,6 +2007,7 @@ GameObject:
   - component: {fileID: 1061959288}
   - component: {fileID: 1061959287}
   - component: {fileID: 1061959291}
+  - component: {fileID: 1061959292}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -2123,6 +2124,18 @@ MonoBehaviour:
   err_ConfPass_Teacher: {fileID: 1716344135}
   err_ConfPass_Student: {fileID: 1564075473}
   err_ClassCode: {fileID: 177689988}
+--- !u!114 &1061959292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061959286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d89ef2c19c968242a612950f4f420c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1071865255
 GameObject:
   m_ObjectHideFlags: 0
