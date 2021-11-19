@@ -18,6 +18,9 @@ TagManager:
   - MiddleFloat
   - LeftFloat
   - RightFloat
+  - EnemySpawn
+  - BattleUI
+  - Fader
   layers:
   - Default
   - TransparentFX

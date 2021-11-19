@@ -47,7 +47,7 @@ public class UserAuth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
     //Receives string data from inputfield 'User Name' from On End trigger

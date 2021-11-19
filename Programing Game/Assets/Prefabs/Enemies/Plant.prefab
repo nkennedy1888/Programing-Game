@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1655808349828455408}
   - component: {fileID: 4112988204019653399}
   - component: {fileID: 2533659648670513288}
+  - component: {fileID: -3055425960570596373}
   m_Layer: 0
   m_Name: Plant
   m_TagString: Enemy
@@ -151,3 +152,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-3055425960570596373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518423630427374024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0c0b956bc3862469fd40227ead6a77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 4321062564560487471, guid: ea16c2903830f8e46a40d21023349332, type: 3}
+  coll: {fileID: 0}
