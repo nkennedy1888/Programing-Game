@@ -110,7 +110,7 @@ public class Question_Parser : MonoBehaviour
                 System.Random rnd = new System.Random();
                 int a = rnd.Next(1, 11);
                 int b = rnd.Next(1, 11);
-                int x = rnd.Next(1, 11);
+                int x = rnd.Next(1, 3);
                 int y = rnd.Next(1, 11);
 
                 string ques = question[n];
