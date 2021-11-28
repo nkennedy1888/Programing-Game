@@ -8,7 +8,7 @@ public class Database : MonoBehaviour
     private new string  name;
     [HideInInspector]public UserData currUser;
     
-    Dictionary<string, UserData> users= new Dictionary<string, UserData>();
+   public Dictionary<string, UserData> users= new Dictionary<string, UserData>();
 
 
     public void Start()
@@ -19,6 +19,13 @@ public class Database : MonoBehaviour
         name = PlayerPrefs.GetString("username");
         //sets current users data to defualt
         currUser = new UserData(name, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+        Debug.Log("current user is: " + name);
+
+        if(users == null) 
+        {
+            Debug.Log("its broke");
+        }
 
         //checks if user exists in database alread
         if (users.ContainsKey(name)) 
@@ -35,8 +42,9 @@ public class Database : MonoBehaviour
         
         }
 
-       
-        
+        foreach (KeyValuePair<string, UserData> kvp in users)
+            Debug.Log(kvp.Key + kvp.Value.username + kvp.Value.avatarID);
+
     }
     public void Update()
     {

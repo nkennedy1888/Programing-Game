@@ -22,3 +22,15 @@ pass: bob
 type: student
 code: 184
 },
+{
+name: betty
+pass: bop
+type: teacher
+code: 
+},
+{
+name: pink
+pass: j
+type: teacher
+code: 
+},

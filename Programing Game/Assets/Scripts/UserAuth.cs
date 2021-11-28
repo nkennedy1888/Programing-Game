@@ -185,69 +185,7 @@ public class UserAuth : MonoBehaviour
             SetUsername(currUser);
             SceneManager.LoadScene("Main - Student");
         }
-        //Check currUser against existing usernames to ensure no duplicate(s)
-        //if (File.Exists(path))
-        //{
-
-        //    Debug.Log("file check worked");
-
-        //    string line;
-        //    StreamReader reader = new StreamReader(path);
-
-        //    while ((line = reader.ReadLine()) != null && line != "")
-        //    {
-        //        //Important to note: a substring of the format .substring(startIndex, endIndex) is not available in C#, so the condition below finds proper length to get the username substring
-        //        //Debug.Log("Username in parsers current line: " +line.Substring(line.IndexOf("] : <") + 5, (line.IndexOf("> :") - (line.IndexOf("] : <") + 5))));
-        //        if (line.Substring(line.IndexOf("] : <") + 5, (line.IndexOf("> :") - (line.IndexOf("] : <") + 5))).Equals(currUser))
-        //        {
-        //            Debug.Log("Duplicate username; enter unique username");
-        //            err_Username.SetActive(true);
-        //            reader.Close();
-        //            return;                 
-        //        }
-        //    }
-        //    reader.Close();
-        //}
-        //else
-        //{
-        //    File.Create(path).Close();
-        //}
-
-        ////Note: will need to implement a more secure solution
-        ////Stores entered user data in users.txt according to the following format:
-        ///*
-        // * 
-        // * [STUDENT] : <username> : <password> : <code>
-        // * [TEACHER] : <username> : <password>
-        // * 
-        // */
-
-        //string userEntry = "";
-
-        //if (student)
-        //{
-        //    userEntry = "[STUDENT] : <" + currUser + "> : <" + currPassword + "> : <" + classCode + ">";
-        //}
-        //else if (teacher)
-        //{
-        //    userEntry = "[TEACHER] : <" + currUser + "> : <" + currPassword + ">";
-        //}
-        //else { Debug.Log("UserAuth.CreateAccount() has experienced an error in student/teacher determination"); }
-
-
-        //StreamWriter writer = new StreamWriter(path, true);
-
-        //writer.WriteLine(userEntry);
-        //writer.Close();
-
-        //if (student)
-        //{
-        //    SceneManager.LoadScene("Main - Student");
-        //}
-        //else if (teacher)
-        //{
-        //    SceneManager.LoadScene("Main - Teacher");
-        //}
+        
 
 
     }
