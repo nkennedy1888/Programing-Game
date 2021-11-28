@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4321062564560487466}
   - component: {fileID: 4321062564560487468}
   - component: {fileID: 4321062564560487469}
-  - component: {fileID: 4119371930213772705}
+  - component: {fileID: 5775834820057322041}
   - component: {fileID: -3844188733099937382}
   - component: {fileID: 6464650376363656351}
   - component: {fileID: 8324814862494231052}
@@ -136,8 +136,8 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6383028, y: 0.7539382}
   m_EdgeRadius: 0
---- !u!61 &4119371930213772705
-BoxCollider2D:
+--- !u!70 &5775834820057322041
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -149,19 +149,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.014145851, y: -0.05939412}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.59845924, y: 0.8642421}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0.014113516, y: -0.06915611}
+  m_Size: {x: 0.5822405, y: 0.8673333}
+  m_Direction: 0
 --- !u!114 &-3844188733099937382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c8c9fe1e6f91947b3034de3450b28f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectCollider: {fileID: 4119371930213772705}
+  objectCollider: {fileID: 5775834820057322041}
   wallCollider: {fileID: 4321062564560487469}
   anotherCollider: {fileID: 0}
 --- !u!114 &6464650376363656351
@@ -191,6 +181,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currUser:
     username: 
+    password: 
+    accountType: 
+    classCode: 0
     progressBeginner: 0
     progressIntermediate: 0
     progressAdvanced: 0

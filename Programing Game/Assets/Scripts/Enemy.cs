@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public GameObject player;
     private Collider2D coll;
     private GameObject enemy;
+    public bool isColl = false;
     
     // Start is called before the first frame update
     void Start()
@@ -26,8 +27,9 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player" && collision.collider == coll) 
+        if (collision.gameObject.tag == "Player" /*&& !isColl*/ && collision.collider.GetType() == typeof(CircleCollider2D)) 
         {
+            isColl = true;
             GameObject playerClone = Instantiate(player, new Vector3(0.5f , 0.5f , 0), Quaternion.identity, playerSpot.transform);
             playerClone.transform.position = playerSpot.transform.position;
 

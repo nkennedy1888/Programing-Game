@@ -346,6 +346,7 @@ MonoBehaviour:
   data: {fileID: 1601532495}
   message: {fileID: 1932571503}
   hit: 0
+  attack: 0
 --- !u!114 &59704542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1247,6 +1248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleUI: {fileID: 1247969696}
   battleCam: {fileID: 37881432}
+  qPars: {fileID: 59704541}
   pMax: 100
   eMax: 100
   pHealth: {fileID: 1350451197}
@@ -4000,6 +4002,10 @@ PrefabInstance:
     - target: {fileID: 4321062564560487467, guid: ea16c2903830f8e46a40d21023349332, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321062564560487469, guid: ea16c2903830f8e46a40d21023349332, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4321062564560487471, guid: ea16c2903830f8e46a40d21023349332, type: 3}
       propertyPath: m_Name
