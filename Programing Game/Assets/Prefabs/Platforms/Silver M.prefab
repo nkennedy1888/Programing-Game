@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1249589486902600364}
   m_Layer: 0
   m_Name: Silver M
-  m_TagString: Middle
+  m_TagString: MiddleFloat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

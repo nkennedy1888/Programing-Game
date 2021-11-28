@@ -24,7 +24,7 @@ public class LevelGen : MonoBehaviour
     private int y = 0;
     private int enemies;
     private int numEnemy = 0;
-    private int lastX = 0;
+    
 
     //public GameObject Brick;
 
@@ -84,10 +84,10 @@ public class LevelGen : MonoBehaviour
             spawnRight(prev, prev2, x, y);
 
             //spawns floating platforms
-            if(x > lastX && x < maxX - 4)
-            {
-                lastX = spawnFloatingPlatform(prev, x, y);
-            }
+            spawnFloatingPlatform(prev, x, y);
+//            if (spawnFloatingPlatform  
+
+
         }
 
         //Makes sure the last tile is a right tile
@@ -128,11 +128,10 @@ public class LevelGen : MonoBehaviour
             GameObject[] middles = GameObject.FindGameObjectsWithTag("Middle");
             
                
-            for (int i = 0; i <middles.Length; i++)               
+            for (int i = 4; i <middles.Length - 4; i++)               
             {
                 if(!Physics.CheckSphere(middles[i].transform.position, .4f) && !Physics.CheckSphere(middles[i].transform.position + new Vector3(1,0,0), .4f) && !Physics.CheckSphere(middles[i].transform.position + new Vector3(2, 0, 0), .4f)
-                    && !Physics.CheckSphere(middles[i].transform.position + new Vector3(-2, 0, 0), .4f) && !Physics.CheckSphere(middles[i].transform.position + new Vector3(-1, 0, 0), .4f) && middles[i].transform.position.x >= 4
-                    && middles[i].transform.position.y >= 0 && middles[i].transform.position.y <= maxY) 
+                    && !Physics.CheckSphere(middles[i].transform.position + new Vector3(-2, 0, 0), .4f) && !Physics.CheckSphere(middles[i].transform.position + new Vector3(-1, 0, 0), .4f)) 
                 {
                     SpawnEnemy(middles[i]);                       
                     numEnemy++;                   
@@ -148,69 +147,57 @@ public class LevelGen : MonoBehaviour
     }
 
     //Creates Floating Platforms
-    int spawnFloatingPlatform(GameObject prev, int x, int y)
+    void spawnFloatingPlatform(GameObject prev, int x, int y)
     {
         //GameObject flyingPlatform = null;
-        int lastX = x;
 
         //chose floating platform color
-        //int flyColor = Random.Range(0, 3);
+        int flyColor = Random.Range(0, 3);
 
         //Give 1 in x chance of spawning
         int a = Random.Range(1, 10);
-        if (a <= 3)
+        if (a == 1)
         {
             //selects length of floating platform
-            int b = Random.Range(3, 5);
+            int b = Random.Range(2, 5);
             //selects height of floating platform
-            int c = Random.Range(4, maxJump + 4);
+            int c = Random.Range(4, maxJump);
 
             if (b == 2)
             {
-                Instantiate(templates.floatLeft[color], new Vector3(0.5f + x, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
-                Instantiate(templates.floatRight[color], new Vector3(0.5f + x + 1, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
-
-                lastX = x + 2;
-                return lastX;
+                Instantiate(templates.floatLeft[flyColor], new Vector3(x, y + c, 0), Quaternion.identity, platform.transform);
+                Instantiate(templates.floatRight[flyColor], new Vector3(x + 1, y + c, 0), Quaternion.identity, platform.transform);
             }
 
             else
                 if (b == 3)
                 {
-                    Instantiate(templates.floatLeft[color], new Vector3(0.5f + x, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
-                    Instantiate(templates.floatMid[color], new Vector3(0.5f + x + 1, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
-                    Instantiate(templates.floatRight[color], new Vector3(0.5f + x + 2, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
-                lastX = x + 3;
-                return lastX;
-            }
+                    Instantiate(templates.floatLeft[flyColor], new Vector3(x, y + c, 0), Quaternion.identity, platform.transform);
+                    Instantiate(templates.floatMid[flyColor], new Vector3(x + 1, y + c, 0), Quaternion.identity, platform.transform);
+                    Instantiate(templates.floatRight[flyColor], new Vector3(x + 2, y + c, 0), Quaternion.identity, platform.transform);
+                }
 
             else
                 if (b == 4)
                 {
-                    Instantiate(templates.floatLeft[color], new Vector3(0.5f + x, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                    Instantiate(templates.floatLeft[flyColor], new Vector3(x, y + c, 0), Quaternion.identity, platform.transform);
                     for (int i = 1; i <= 2; i++)
                     {
-                        Instantiate(templates.floatMid[color], new Vector3(0.5f + x + i, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                        Instantiate(templates.floatMid[flyColor], new Vector3(x + i, y + c, 0), Quaternion.identity, platform.transform);
                     }
-                    Instantiate(templates.floatRight[color], new Vector3(0.5f + x + 3, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
-                lastX = x + 4;
-                return lastX;
-            }
+                    Instantiate(templates.floatRight[flyColor], new Vector3(x + 3, y + c, 0), Quaternion.identity, platform.transform);
+                }
 
             else
             {
-                Instantiate(templates.floatLeft[color], new Vector3(0.5f + x, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                Instantiate(templates.floatLeft[flyColor], new Vector3(x, y + c, 0), Quaternion.identity, platform.transform);
                 for (int i = 1; i <= 3; i++)
                     {
-                        Instantiate(templates.floatMid[color], new Vector3(0.5f + x + i, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                        Instantiate(templates.floatMid[flyColor], new Vector3(x + i, y + c, 0), Quaternion.identity, platform.transform);
                     }
-                Instantiate(templates.floatRight[color], new Vector3(0.5f + x + 4, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
-                lastX = x + 5;
-                return lastX;
+                Instantiate(templates.floatRight[flyColor], new Vector3(x + 4, y + c, 0), Quaternion.identity, platform.transform);
             }
         }
-
-        return lastX;
     }       
 
     //Select the spawn point and type for next tile

@@ -13,11 +13,8 @@ public class Question_Parser : MonoBehaviour
     public Text a2text;
     public Text a3text;
     public Text a4text;
-    public GameObject qUI;
-    private string[] q;
-    public Database data;
-    public GameObject message;
-    [HideInInspector]public bool hit;
+
+
 
     //Question bank created on Parser.Run
     List<string> qType = new List<string>();
@@ -60,41 +57,19 @@ public class Question_Parser : MonoBehaviour
                 iAnswer3.Add(values[5]);
             }
         }
-       
-        q = this.GetQuestion(UnityEngine.Random.Range(0,6));
-        
-        qtext.text = q[0].Replace("@", Environment.NewLine);
-        a1text.text = q[1];
-        a2text.text = q[2];
-        a3text.text = q[3];
-        a4text.text = q[4];
-        Debug.Log("button was clicked!");
-        qUI.SetActive(true);
 
+        string[] q = this.GetQuestion(0);
+        
+         qtext.text = q[0].Replace("@", Environment.NewLine);
+        a1text.text = q[1];
+         a2text.text = q[2];
+         a3text.text = q[3];
+         a4text.text = q[4];
+        Debug.Log("button was clicked!");
         return;
     }
 
-    public void Acheck(Text t)
-    {
-        if (t.text.Equals(q[1]))
-        {
-            message.GetComponent<Text>().text =  t.text + " is correct";
-            message.SetActive(true);
-            StartCoroutine(MessageTimer(message, 1f, qUI));
-            data.currUser.qstCrctBeginner ++;
-            hit = true;
-            return;
-        }
-        else
-        {
-            message.GetComponent<Text>().text = t.text + " is incorrect " +q[1]+ " is correct";
-            message.SetActive(true);
-            StartCoroutine(MessageTimer(message, 2f, qUI));
-            data.currUser.qstCrctBeginner++;
-            hit = false;
-            return;
-        }
-    }
+
     //Input is an integer. Returns question at that index in the form of a string array.
     //Index 0 is the question. Index 1 is the correct answer. Index 2,3, and 4 are the incorrect answers.
     public string[] GetQuestion(int n)
@@ -170,13 +145,6 @@ public class Question_Parser : MonoBehaviour
         }
 
         return q;
-    }
-
-    public IEnumerator MessageTimer(GameObject message, float t, GameObject qui)
-    {
-        yield return new WaitForSeconds(t);
-        message.gameObject.SetActive(false);
-        qui.gameObject.SetActive(false);
     }
 
     //publicly avalible code found to evaluate math expressions from strings.
