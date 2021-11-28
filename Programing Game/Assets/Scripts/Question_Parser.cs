@@ -61,7 +61,7 @@ public class Question_Parser : MonoBehaviour
             }
         }
        
-        q = this.GetQuestion(0);
+        q = this.GetQuestion(UnityEngine.Random.Range(0,6));
         
         qtext.text = q[0].Replace("@", Environment.NewLine);
         a1text.text = q[1];
