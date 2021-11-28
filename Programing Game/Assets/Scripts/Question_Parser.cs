@@ -63,12 +63,30 @@ public class Question_Parser : MonoBehaviour
         }
        
         q = this.GetQuestion(UnityEngine.Random.Range(0,6));
-        
         qtext.text = q[0].Replace("@", Environment.NewLine);
-        a1text.text = q[1];
-        a2text.text = q[2];
-        a3text.text = q[3];
-        a4text.text = q[4];
+
+        Boolean flag = true;
+        int count = 0;
+        int[] check = new int[]{ 0, 0, 0, 0 };
+        while (flag) {
+            System.Random ran = new System.Random();
+            int k = ran.Next(4);
+            if (check[k] == 0)
+            {
+                check[k] = 1;
+                if (count == 0) { a1text.text = q[k + 1]; }
+                else if(count == 1) { a2text.text = q[k + 1]; }
+                else if(count == 2) { a3text.text = q[k + 1]; }
+                else { a4text.text = q[k + 1]; }
+                count++;
+                if(check[0] == 1 && check[1] == 1 && check[2] == 1 && check[3] == 1)
+                {
+                    flag = false;
+                }
+            }
+            
+        }
+        
         Debug.Log("button was clicked!");
         qUI.SetActive(true);
 
