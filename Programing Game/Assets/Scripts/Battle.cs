@@ -11,6 +11,7 @@ public class Battle : MonoBehaviour
     private GameObject player;
     public GameObject battleUI;
     public GameObject battleCam;
+    public Question_Parser qPars;
     public int pMax;
     public int eMax;
     private int pAttk;
@@ -29,6 +30,7 @@ public class Battle : MonoBehaviour
         pCurr = pMax;
         eCurr = eMax;
 
+
     }
 
     // Update is called once per frame
@@ -39,6 +41,29 @@ public class Battle : MonoBehaviour
         eBar.value = CalculateStat(eCurr, eMax);
         pHealth.text = pCurr + " / " + pMax;
         eHealth.text = eCurr + " / " + eMax;
+
+        if(isBattle && qPars.hit && qPars.attack)
+        {
+            //add hit anim and attck anim
+            StartCoroutine(PlayerAttack());
+            StartCoroutine(EnemyAttack());
+            qPars.hit = false;
+            qPars.attack = false;
+        }
+
+        if (isBattle && !qPars.hit && qPars.attack)
+        {
+            //add attack anim and miss message
+            StartCoroutine(EnemyAttack());
+            qPars.hit = false;
+            qPars.attack = false;
+        }
+
+
+
+
+
+
     }
 
     public void Fight()
@@ -51,14 +76,30 @@ public class Battle : MonoBehaviour
         battleUI.SetActive(true);
         battleCam.GetComponent<CinemachineVirtualCamera>().Priority = 15;
         StartCoroutine(sf.FadeToClear());
+        enemy.GetComponent<Enemy>().isColl = false;
 
     }
     float CalculateStat(int currstat, int maxstat)
     {
-        float num = currstat / maxstat;
+        float num = (float)currstat / (float)maxstat;
 
         return num;
 
     }
 
+    public IEnumerator PlayerAttack()
+    {
+       
+        yield return new WaitForSecondsRealtime(1.7f);
+
+        pAttk = Random.Range(18, 22);
+        eCurr -= pAttk;
+    }
+    public IEnumerator EnemyAttack()
+    {
+        
+        yield return new WaitForSecondsRealtime(2.4f);
+        eAttk = Random.Range(12, 19);
+        pCurr -= eAttk;
+    }
 }

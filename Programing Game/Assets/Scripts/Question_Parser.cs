@@ -18,6 +18,7 @@ public class Question_Parser : MonoBehaviour
     public Database data;
     public GameObject message;
     [HideInInspector]public bool hit;
+    [HideInInspector] public bool attack;
 
     //Question bank created on Parser.Run
     List<string> qType = new List<string>();
@@ -80,18 +81,20 @@ public class Question_Parser : MonoBehaviour
         {
             message.GetComponent<Text>().text =  t.text + " is correct";
             message.SetActive(true);
-            StartCoroutine(MessageTimer(message, 1f, qUI));
-            data.currUser.qstCrctBeginner ++;
+            StartCoroutine(MessageTimer(message, .5f, qUI));
+            //data.currUser.qstCrctBeginner ++;
             hit = true;
+            attack = true;
             return;
         }
         else
         {
             message.GetComponent<Text>().text = t.text + " is incorrect " +q[1]+ " is correct";
             message.SetActive(true);
-            StartCoroutine(MessageTimer(message, 2f, qUI));
-            data.currUser.qstCrctBeginner++;
+            StartCoroutine(MessageTimer(message, 1f, qUI));
+            //data.currUser.qstCrctBeginner++;
             hit = false;
+            attack = true;
             return;
         }
     }
