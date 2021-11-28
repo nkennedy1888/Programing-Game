@@ -345,6 +345,7 @@ MonoBehaviour:
   qUI: {fileID: 1069675726}
   data: {fileID: 1601532495}
   message: {fileID: 1932571503}
+  hit: 0
 --- !u!114 &59704542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1246,6 +1247,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleUI: {fileID: 1247969696}
   battleCam: {fileID: 37881432}
+  pMax: 100
+  eMax: 100
+  pHealth: {fileID: 1350451197}
+  eHealth: {fileID: 956317783}
+  pBar: {fileID: 712092620}
+  eBar: {fileID: 1880330385}
 --- !u!1 &268318016
 GameObject:
   m_ObjectHideFlags: 0
