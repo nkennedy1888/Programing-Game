@@ -7,6 +7,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 [System.Serializable]
 public static class SaveData
 {
+    public static void CreateFile()
+    {
+        File.Create("Assets/SaveData/stats.txt");
+    }
+
     public static void SaveGame(Dictionary<string,UserData> data) 
     {
         //saves the player data to a binary file
