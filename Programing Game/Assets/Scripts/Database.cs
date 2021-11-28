@@ -26,7 +26,7 @@ public class Database : MonoBehaviour
 
         if (!SceneManager.GetActiveScene().name.Equals("Log in"))
         {
-            PlayerPrefs.DeleteAll();
+            
 
 
             //gets data from save file when a new scene loads
@@ -34,7 +34,6 @@ public class Database : MonoBehaviour
             //gets current users name from system
             name = PlayerPrefs.GetString("username");
             //sets current users data to defualt
-
             //currUser = new UserData(name, "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 

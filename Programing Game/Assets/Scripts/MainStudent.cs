@@ -61,8 +61,9 @@ public class MainStudent : MonoBehaviour
         SceneManager.LoadScene("Battle");
     }
 
-    public void changePassword()
+    public void ChangePassword()
     {
+        Debug.Log("Current username: " + PlayerPrefs.GetString("username"));
         if (!newPass.Equals(confPass))
         {
             //"Passwords must match" dialogue
@@ -70,7 +71,7 @@ public class MainStudent : MonoBehaviour
         }
         else
         {
-            localDB.currUser.password = newPass;
+            localDB.users[PlayerPrefs.GetString("username")].password = newPass;
         }
         
 
@@ -87,12 +88,5 @@ public class MainStudent : MonoBehaviour
     {
         return PlayerPrefs.GetString("username");
     }
-
-    string GetPassword()
-    {
-        return localDB.currUser.password; 
-    }
-
-    //Implement method to change password.
 
 }

@@ -160,7 +160,7 @@ public class UserAuth : MonoBehaviour
             return;
         }
 
-        Debug.Log(localDB.HasUserandPassword(currUser, currPassword));
+        //Debug.Log(localDB.HasUserandPassword(currUser, currPassword));
 
        if(localDB.HasUserandPassword(currUser, currPassword))
        {
@@ -188,45 +188,7 @@ public class UserAuth : MonoBehaviour
                 return;
             }
        }
-        //Debug.Log("DB_User: " + localDB.currUser.username + " DB_Pass: " + localDB.currUser.password);
-
-        //if (currPassword.Equals(localDB.currUser.password))
-        //{
-        //    Debug.Log("correct password");
-        //    //Password verified, proceed to account redirection
-        //    if (true)
-        //    {
-        //        Debug.Log("is teacher");
-        //        //SetUsername(currUser);
-        //        SceneManager.LoadScene("Main - Teacher");
-        //    }
-        //    else if (true)
-        //    {
-        //        Debug.Log("is student");
-        //        //SetUsername(currUser);
-        //        SceneManager.LoadScene("Main - Student");
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("acctype error");
-        //        err_Password.GetComponent<Text>().text = "An issue has occurred in identifying accType";
-        //        err_Password.SetActive(true);
-        //        StartCoroutine(messageTimer(err_Password));
-        //        PlayerPrefs.DeleteKey("username");
-        //        return;
-        //    }
-        //}
-        //else
-        //{
-        //    Debug.Log("Password invalid");
-        //    //Password rejected remove current user from playprefs to allow for future login attempts
-        //    if (PlayerPrefs.HasKey("username"))
-        //    {
-        //        PlayerPrefs.DeleteKey("username");
-        //    }
-        //    return;
-        //}
-
+ 
     }
 
     //Write current users password input to users.txt and PlayerPrefs for persistence across scenes
@@ -239,34 +201,6 @@ public class UserAuth : MonoBehaviour
     public string GetUsername()
     {
         return PlayerPrefs.GetString("username");
-    }
-
-    string GetAccTypeFromFile()
-    {
-        string type = "";
-        string line;
-
-        StreamReader reader = new StreamReader(path);
-
-        while ((line = reader.ReadLine()) != null && line != "")
-        {
-            if (line.StartsWith("name") && line.Substring(line.IndexOf(":") + 2).Equals(GetUsername()))
-            {
-                reader.ReadLine();
-                line = reader.ReadLine();
-                type = line.Substring(line.IndexOf(":") + 2);
-            }
-        }
-        reader.Close();
-        return type;
-    }
-
-
-
-    //Delete all account details from users.txt; call LogOut() to finalize
-    void DeleteAccount(string name, string pass)
-    {
-
     }
 
     public IEnumerator messageTimer(GameObject message)
