@@ -8,11 +8,13 @@ using UnityEngine.UI;
 
 public class BattleUIGeneral : MonoBehaviour
 {
+    private Database localDB;
     public GameObject exitWindow;
     //public Button exit, cont;
     // Start is called before the first frame update
     void Start()
     {
+        localDB = GameObject.FindGameObjectWithTag("Player").GetComponent<Database>();
         exitWindow.SetActive(false);
     }
 
@@ -32,7 +34,7 @@ public class BattleUIGeneral : MonoBehaviour
     public void Exit()
     {
         //Get account type and redir to appropriate "Main - [acctype]" scene
-        string accType = GetAccTypeFromFile();
+        string accType = localDB.currUser.accountType.ToLower();
 
         if (accType.Equals("teacher"))
         {
@@ -53,23 +55,4 @@ public class BattleUIGeneral : MonoBehaviour
         exitWindow.SetActive(false);
     }
 
-    string GetAccTypeFromFile()
-    {
-        string type = "";
-        string line;
-        string path = "Assets/SaveData/users.txt";
-        StreamReader reader = new StreamReader(path);
-
-        while ((line = reader.ReadLine()) != null && line != "")
-        {
-            if (line.StartsWith("name") && line.Substring(line.IndexOf(":") + 2).Equals(PlayerPrefs.GetString("username")))
-            {
-                reader.ReadLine();
-                line = reader.ReadLine();
-                type = line.Substring(line.IndexOf(":") + 2);
-            }
-        }
-        reader.Close();
-        return type;
-    }
 }
