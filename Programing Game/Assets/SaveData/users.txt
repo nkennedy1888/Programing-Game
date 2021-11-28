@@ -1,0 +1,36 @@
+{
+name: pp
+pass: 1234
+type: student
+code: 33134
+},
+{
+name: admin
+pass: password
+type: teacher
+code: 
+},
+{
+name: person
+pass: discrete
+type: student
+code: 22143
+},
+{
+name: nk
+pass: bob
+type: student
+code: 184
+},
+{
+name: betty
+pass: bop
+type: teacher
+code: 
+},
+{
+name: pink
+pass: j
+type: teacher
+code: 
+},

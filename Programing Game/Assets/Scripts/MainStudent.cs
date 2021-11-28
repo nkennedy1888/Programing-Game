@@ -9,14 +9,12 @@ public class MainStudent : MonoBehaviour
 {
 
     public GameObject settings_Parent, account_Parent, changePassParent;
-    private Database localDB;
 
     string newPass, confPass;
+    private string path = "Assets/SaveData/users.txt";
     // Start is called before the first frame update
     void Start()
     {
-        localDB = GameObject.FindGameObjectWithTag("Player").GetComponent<Database>();
-
         account_Parent.SetActive(false);
         settings_Parent.SetActive(false);
         changePassParent.SetActive(false);
@@ -48,7 +46,6 @@ public class MainStudent : MonoBehaviour
 
         account_Parent.SetActive(!account_Parent.activeSelf);
 
-
     }
 
     public void TogglePassChangeVis()
@@ -61,26 +58,15 @@ public class MainStudent : MonoBehaviour
         SceneManager.LoadScene("Battle");
     }
 
-    public void changePassword()
+    void changePassword()
     {
         if (!newPass.Equals(confPass))
         {
             //"Passwords must match" dialogue
             return;
         }
-        else
-        {
-            localDB.currUser.password = newPass;
-        }
         
 
-    }
-
-    //Clears playerprefs and redirects to Log in scene
-    public void LogOut()
-    {
-        PlayerPrefs.DeleteKey("username");
-        SceneManager.LoadScene("Log in");
     }
 
     public string GetUsername()
@@ -88,9 +74,25 @@ public class MainStudent : MonoBehaviour
         return PlayerPrefs.GetString("username");
     }
 
-    string GetPassword()
+    string GetPasswordFromFile()
     {
-        return localDB.currUser.password; 
+        
+        string pass = "";
+        string line;
+
+        StreamReader reader = new StreamReader(path);
+
+        while ((line = reader.ReadLine()) != null && line != "")
+        {
+            if (line.StartsWith("name") && line.Substring(line.IndexOf(":") + 2).Equals(GetUsername()))
+            {
+                line = reader.ReadLine();
+                pass = line.Substring(line.IndexOf(":") + 2);
+                break;
+            }
+        }
+        reader.Close();
+        return pass;
     }
 
     //Implement method to change password.
