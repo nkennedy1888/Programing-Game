@@ -1249,7 +1249,6 @@ MonoBehaviour:
   battleUI: {fileID: 1247969696}
   battleCam: {fileID: 37881432}
   qPars: {fileID: 59704541}
-  bUI: {fileID: 59704542}
   pMax: 100
   eMax: 100
   pHealth: {fileID: 1350451197}
