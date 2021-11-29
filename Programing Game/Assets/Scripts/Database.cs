@@ -93,14 +93,6 @@ public class Database : MonoBehaviour
         
     }
 
-    //public void UpdateUser(string m_name, string m_password, string m_accType, int m_classCode, float progBeg, float progInt, float progAdv, int avatarID, int qCorrectBeg, int qWrongBeg, int qCorrectInt, int qWrongInt, int qCorrectAdv, int qWrongAdv)
-    //{
-    //    for (int i = 0; i < 14; i++)
-    //    {
-    //        switch ()
-    //    }
-    //}
-
     public bool HasUserandPassword(string m_name, string m_password)
     {
         //Returns true if username and corresponding password match what's in the database; else return false

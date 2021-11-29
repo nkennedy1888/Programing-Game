@@ -46,7 +46,7 @@ public class BattleUIGeneral : MonoBehaviour
         }
         else
         {
-            Debug.Log("Error has occurred, redirecting to Login");
+            //Debug.Log("Error has occurred, redirecting to Login");
             SceneManager.LoadScene("Log In");
         }
     }
