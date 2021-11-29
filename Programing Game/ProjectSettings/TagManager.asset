@@ -21,6 +21,7 @@ TagManager:
   - EnemySpawn
   - BattleUI
   - Fader
+  - UI
   layers:
   - Default
   - TransparentFX
