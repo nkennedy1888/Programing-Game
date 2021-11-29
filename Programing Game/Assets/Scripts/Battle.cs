@@ -12,6 +12,7 @@ public class Battle : MonoBehaviour
     public GameObject battleUI;
     public GameObject battleCam;
     public Question_Parser qPars;
+    public BattleUIGeneral bUI;
     public int pMax;
     public int eMax;
     private int pAttk;
@@ -59,8 +60,24 @@ public class Battle : MonoBehaviour
             qPars.attack = false;
         }
 
+        if (isBattle && eCurr == 0)
+        {
+            ScreenFade sf = GameObject.FindGameObjectWithTag("Fader").GetComponent<ScreenFade>();
+            isBattle = false;
+            StartCoroutine(sf.FadeToBlack());
+            Destroy(enemy);
+            Destroy(player);
+            battleUI.SetActive(false);
+            battleCam.GetComponent<CinemachineVirtualCamera>().Priority = 5;
+            GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerController>().enabled = true;
+            StartCoroutine(sf.FadeToClear());
+           
+        }
 
-
+        if(isBattle && pCurr == 0)
+        {
+            bUI.Exit();
+        }
 
 
 
@@ -68,6 +85,8 @@ public class Battle : MonoBehaviour
 
     public void Fight()
     {
+        eCurr = eMax;
+        pCurr = pMax;
         ScreenFade sf = GameObject.FindGameObjectWithTag("Fader").GetComponent<ScreenFade>();
         isBattle = true;
         StartCoroutine(sf.FadeToBlack());
@@ -76,7 +95,6 @@ public class Battle : MonoBehaviour
         battleUI.SetActive(true);
         battleCam.GetComponent<CinemachineVirtualCamera>().Priority = 15;
         StartCoroutine(sf.FadeToClear());
-        enemy.GetComponent<Enemy>().isColl = false;
 
     }
     float CalculateStat(int currstat, int maxstat)
@@ -93,13 +111,30 @@ public class Battle : MonoBehaviour
         yield return new WaitForSecondsRealtime(1.7f);
 
         pAttk = Random.Range(18, 22);
-        eCurr -= pAttk;
+        
+        if (eCurr <= pAttk)
+        {
+            eCurr = 0;
+        }
+        else
+        {
+            eCurr -= pAttk;
+        }
+
     }
     public IEnumerator EnemyAttack()
     {
         
         yield return new WaitForSecondsRealtime(2.4f);
         eAttk = Random.Range(12, 19);
-        pCurr -= eAttk;
+        if (pCurr<= eAttk)
+        {
+            pCurr = 0;
+        }
+        else
+        {
+            pCurr -= eAttk;
+        }
+        
     }
 }
