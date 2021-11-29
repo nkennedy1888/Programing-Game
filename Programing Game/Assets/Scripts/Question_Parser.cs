@@ -114,14 +114,29 @@ public class Question_Parser : MonoBehaviour
             if (level == 1) 
             { 
                 data.currUser.qstCrctBeginner ++;
+                data.currUser.progressBeginner += 2.5f;
+                if (data.currUser.progressBeginner >= 100)
+                {
+                    data.currUser.progressBeginner = 100;
+                }
             }
             else if (level == 2)
             {
                 data.currUser.qstCrctIntermediate++;
+                data.currUser.progressIntermediate += 2.5f;
+                if (data.currUser.progressIntermediate >= 100)
+                {
+                    data.currUser.progressIntermediate = 100;
+                }
             }
             else if (level == 3)
             {
                 data.currUser.qstCrctAdvanced++;
+                data.currUser.progressAdvanced += 2.5f;
+                if (data.currUser.progressAdvanced >= 100)
+                {
+                    data.currUser.progressAdvanced = 100;
+                }
             }
             
             hit = true;
@@ -136,14 +151,29 @@ public class Question_Parser : MonoBehaviour
             if (level == 1)
             {
                 data.currUser.qstWrgBeginner++;
+                data.currUser.progressBeginner -= 1f;
+                if(data.currUser.progressBeginner <= 0) 
+                {
+                    data.currUser.progressBeginner = 0;
+                }
             }
             else if (level == 2)
             {
                 data.currUser.qstWrgIntermediate++;
+                data.currUser.progressIntermediate -= 1f;
+                if (data.currUser.progressIntermediate <= 0)
+                {
+                    data.currUser.progressIntermediate = 0;
+                }
             }
             else if (level == 3)
             {
                 data.currUser.qstWrgAdvanced++;
+                data.currUser.progressAdvanced -= 1f;
+                if (data.currUser.progressAdvanced <= 0)
+                {
+                    data.currUser.progressAdvanced = 0;
+                }
             }
             hit = false;
             attack = true;
