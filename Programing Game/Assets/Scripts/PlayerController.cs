@@ -27,6 +27,13 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("IsJumping", rb.velocity.y > 0.01);
         anim.SetBool("IsFalling", rb.velocity.y < -0.01);
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.y < 0.01 && rb.velocity.y > -0.01)
+            SoundManagerScript.playSound("jumping sfx");
+        /*if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) && rb.velocity.y < 0.01 && rb.velocity.y > -0.01)
+            SoundManagerScript.playSound("walking sfx");*/
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         if (hDirection > 0)
         {
             rb.velocity = new Vector2(hDirection * 6, rb.velocity.y);

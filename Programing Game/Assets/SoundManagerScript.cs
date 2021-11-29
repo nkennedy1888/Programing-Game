@@ -1,0 +1,69 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SoundManagerScript : MonoBehaviour
+{
+    public static AudioClip jumpSound, walkSound, ambientMusic, battleMusic, selectSound;
+    static AudioSource audioSrcJump, audioSrcWalk, audioSrcSelect, audioSrcAmbient, audioSrcBattle;
+    // Start is called before the first frame update
+    void Start()
+    {
+        audioSrcJump = GameObject.FindGameObjectWithTag("jump sfx").GetComponent<AudioSource>();
+        audioSrcWalk = GetComponent<AudioSource>();
+        audioSrcSelect = GameObject.FindGameObjectWithTag("select sfx").GetComponent<AudioSource>();
+        audioSrcAmbient = GameObject.FindGameObjectWithTag("ambient music").GetComponent<AudioSource>();
+        audioSrcBattle = GameObject.FindGameObjectWithTag("battle music").GetComponent<AudioSource>();
+        jumpSound = Resources.Load<AudioClip>("Sounds/jumping sfx");
+        walkSound = Resources.Load<AudioClip>("Sounds/walking sfx1");
+        selectSound = Resources.Load<AudioClip>("Sounds/select sfx1");
+        ambientMusic = Resources.Load<AudioClip>("Sounds/ambient music");
+        battleMusic = Resources.Load<AudioClip>("Sounds/battle music");
+        SoundManagerScript.playSound("ambient music");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public static void playSound(string clip)
+    {
+        switch (clip)
+        {
+            case "jumping sfx":
+                audioSrcJump.PlayOneShot(jumpSound);
+                break;
+            /*case "walking sfx":
+                //audioSrcWalk.PlayOneShot(walkSound);
+                audioSrcWalk.clip = walkSound;
+                audioSrcWalk.Play();
+                if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+                    audioSrcWalk.loop = true;
+                else if (!Input.GetKeyDown(KeyCode.LeftArrow) || !Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    audioSrcWalk.loop = false;
+                    audioSrcWalk.Stop();
+                }   
+                break;*/
+            case "select sfx":
+                audioSrcSelect.PlayOneShot(selectSound);
+                break;
+            case "ambient music":
+                //audioSrcAmbient.PlayOneShot(ambientMusic);
+                audioSrcBattle.Stop();
+                audioSrcAmbient.clip = ambientMusic;
+                audioSrcAmbient.Play();
+                audioSrcAmbient.loop = true;
+                break;
+            case "battle music":
+                //audioSrcBattle.PlayOneShot(battleMusic);
+                audioSrcAmbient.Stop();
+                audioSrcBattle.clip = battleMusic;
+                audioSrcBattle.Play();
+                audioSrcBattle.loop = true;
+                break;
+        }
+    }
+}
