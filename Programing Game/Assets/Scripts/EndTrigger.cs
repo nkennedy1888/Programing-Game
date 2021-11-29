@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class EndTrigger : MonoBehaviour
 {
-    public BattleUIGeneral bui;
+    private BattleUIGeneral bui;
     void Start()
     {
         bui = GameObject.FindGameObjectWithTag("UI").GetComponent<BattleUIGeneral>();
