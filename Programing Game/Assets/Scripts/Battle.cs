@@ -23,10 +23,10 @@ public class Battle : MonoBehaviour
     public Text eHealth;
     public Slider pBar;
     public Slider eBar;
-
     // Start is called before the first frame update
     void Start()
     {
+      
         isBattle = false;
         pCurr = pMax;
         eCurr = eMax;
@@ -82,6 +82,7 @@ public class Battle : MonoBehaviour
 
 
     }
+
 
     public void Fight()
     {
