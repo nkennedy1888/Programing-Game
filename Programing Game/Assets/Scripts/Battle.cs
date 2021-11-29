@@ -93,6 +93,7 @@ public class Battle : MonoBehaviour
         StartCoroutine(sf.FadeToBlack());
         player = GameObject.FindGameObjectWithTag("Respawn").transform.GetChild(0).gameObject;
         enemy = GameObject.FindGameObjectWithTag("EnemySpawn").transform.GetChild(0).gameObject;
+        player.tag = "PlayerClone";
         battleUI.SetActive(true);
         battleCam.GetComponent<CinemachineVirtualCamera>().Priority = 15;
         StartCoroutine(sf.FadeToClear());

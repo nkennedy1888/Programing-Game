@@ -9,25 +9,26 @@ public static class SaveData
 {
     public static void CreateFile()
     {
-        File.Create("Assets/SaveData/stats.txt");
+        File.Create(Application.streamingAssetsPath + "/data.stuff");
     }
 
     public static void SaveGame(Dictionary<string,UserData> data) 
     {
         //saves the player data to a binary file
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = "Assets/SaveData/stats.txt";
+        string path = Application.streamingAssetsPath + "/data.stuff";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         formatter.Serialize(stream, data);
         stream.Close();
+        Debug.Log("saved");
     }
 
     public static Dictionary<string, UserData> LoadData() 
     {
         //loads player data from save file and returns a dictionary
         Dictionary<string, UserData> users = new Dictionary<string, UserData>();
-        string path = "Assets/SaveData/stats.txt";
+        string path = Application.streamingAssetsPath + "/data.stuff";
 
         if (File.Exists(path))
         {

@@ -2498,6 +2498,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 112324752992008886, guid: d4888af4a9e54a645b4df8aec464b1ee, type: 3}
+      propertyPath: m_TagString
+      value: Listing
+      objectReference: {fileID: 0}
     - target: {fileID: 1945359741614050642, guid: d4888af4a9e54a645b4df8aec464b1ee, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 165
@@ -3771,7 +3775,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listing: {fileID: 602515195}
+  content: {fileID: 1833256589}
   numberOfListings: 23423434
+  open: 0
 --- !u!114 &961043342
 MonoBehaviour:
   m_ObjectHideFlags: 0

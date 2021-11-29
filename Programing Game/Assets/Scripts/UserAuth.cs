@@ -14,7 +14,6 @@ public class UserAuth : MonoBehaviour
     public GameObject b_signUp, b_Submit, parent_AccType, parent_TeacherAcc, parent_StudentAcc, uName, uPass;
     public GameObject err_Username, err_Password, err_ConfPass_Teacher, err_ConfPass_Student, err_ClassCode;
     private string currUser, currPassword, confirmPass, accType;
-    private string path = "Assets/SaveData/users.txt";
     private int classCode;
 
     

@@ -141,6 +141,10 @@ public class Question_Parser : MonoBehaviour
             
             hit = true;
             attack = true;
+            data.users[data.name] = data.currUser;
+            Debug.Log(data.currUser.progressBeginner.ToString());
+            Debug.Log(data.currUser.progressIntermediate.ToString());
+            Debug.Log(data.currUser.progressAdvanced.ToString());
             return;
         }
         else
@@ -177,6 +181,10 @@ public class Question_Parser : MonoBehaviour
             }
             hit = false;
             attack = true;
+            data.users[data.name] = data.currUser;
+            Debug.Log(data.currUser.progressBeginner.ToString());
+            Debug.Log(data.currUser.progressIntermediate.ToString());
+            Debug.Log(data.currUser.progressAdvanced.ToString());
             return;
         }
     }

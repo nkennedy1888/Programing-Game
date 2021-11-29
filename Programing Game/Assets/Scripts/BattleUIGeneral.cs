@@ -35,6 +35,7 @@ public class BattleUIGeneral : MonoBehaviour
     {
         //Get account type and redir to appropriate "Main - [acctype]" scene
         string accType = localDB.currUser.accountType.ToLower();
+        
 
         if (accType.Equals("teacher"))
         {

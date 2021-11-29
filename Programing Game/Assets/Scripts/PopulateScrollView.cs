@@ -8,9 +8,11 @@ public class PopulateScrollView : MonoBehaviour
 {
     Dictionary<string, float> d_Rankings = new Dictionary<string, float>();
     public GameObject listing;
+    public GameObject content;
     GameObject newObj;
     public int numberOfListings;
     private Database localDB;
+    public bool open;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,19 @@ public class PopulateScrollView : MonoBehaviour
         //Intermediate has weight of 30%
         //Advanced has weight of 45%
         //Multiply weighted avg by completion status
+        open = !open;
+        if (!open)
+        {
+            
+
+            foreach (Transform child in content.transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+
+            return;
+        }
+
         float weightedAvg, begAvg, intAvg, advAvg, ranking;
         Debug.Log(localDB.users.Keys);
         foreach (KeyValuePair<string, UserData> entry in localDB.users)
@@ -101,8 +116,16 @@ public class PopulateScrollView : MonoBehaviour
 
             //Sum final avgs for ranking
             ranking = advAvg + intAvg + begAvg;
+
+            if (d_Rankings.ContainsKey(entry.Key))
+            {
+                continue;
+            }
+            else
+            {
+                d_Rankings.Add(entry.Key, ranking);
+            }
             
-            d_Rankings.Add(entry.Key, ranking);
             
         }
         //l_Ranks = d_Rankings.ToList();

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class Database : MonoBehaviour
 {
     
-    private new string  name;
+    public new string  name;
     [HideInInspector]public UserData currUser;
     
     public Dictionary<string, UserData> users= new Dictionary<string, UserData>();
@@ -15,11 +15,12 @@ public class Database : MonoBehaviour
 
     public void Start()
     {
-        if (!File.Exists("Assets/SaveData/stats.txt"))
-        {
-            SaveData.CreateFile();
-        }
+         if (!File.Exists(Application.streamingAssetsPath + "/data.stuff"))
+         {
+             SaveData.CreateFile();
+         }
 
+        //SaveData.SaveGame(users);
         users = SaveData.LoadData();
 
         Debug.Log(SceneManager.GetActiveScene().name.ToString() + " is the current scene");
@@ -51,6 +52,7 @@ public class Database : MonoBehaviour
                 users.Add(name, currUser);
                 //saves update
                 SaveData.SaveGame(users);
+                Debug.Log("bad save");
 
             }
 
@@ -65,7 +67,7 @@ public class Database : MonoBehaviour
 
     public void OnDestroy()
     {
-        if(!SceneManager.GetActiveScene().name.Equals("Log in"))
+        if(!SceneManager.GetActiveScene().name.Equals("Log in") && this.tag == "Player")
         {
             //saves user data when scene is changed in game
             users[name] = currUser;

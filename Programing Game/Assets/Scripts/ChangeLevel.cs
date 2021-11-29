@@ -10,13 +10,14 @@ public class ChangeLevel : MonoBehaviour
     public Text adv;
     //public Database db;
     private Database localDB;
-    private void Start()
+    IEnumerator Start()
     {
+        yield return new WaitForSeconds(.5f);
         localDB = GameObject.FindGameObjectWithTag("Player").GetComponent<Database>();
 
-        beg.text = "Beginner \n" + localDB.users[PlayerPrefs.GetString("username")].progressBeginner.ToString() + "%";
-        inte.text = "Intermediate \n" + localDB.users[PlayerPrefs.GetString("username")].progressIntermediate.ToString() + "%";
-        adv.text = "Advanced \n" + localDB.users[PlayerPrefs.GetString("username")].progressAdvanced.ToString() + "%";
+        beg.text = "Beginner \n" + localDB.currUser.progressBeginner.ToString() + "%";
+        inte.text = "Intermediate \n" + localDB.currUser.progressIntermediate.ToString() + "%";
+        adv.text = "Advanced \n" + localDB.currUser.progressAdvanced.ToString() + "%";
     }
     public void LevelSelect(int l)
     {
