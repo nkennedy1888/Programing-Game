@@ -1,1 +1,6 @@
 a:int z = 0@for (i=0; i<{a};i++)@{@     z = z + {y}@}:{y}*{a}:{y}*{a}+1:{y}+{a}:{y}-{a}
+a:int z = 100@for (i=0; i<{a}; i++)@{@     z = z - {y}@}:100-({y}*{a}):{y}*{a}:{y}-{a}:{y}+{a}
+a:int z = 1@for (i=0; i<{x};i++)@{@     z = z * {y}@}:{y}^{x}:{y}^{x}-2:{y}+{x}:{y}+{x}+5
+b:Which of the following is a String:"Hello World!":5:i:8
+b:Which of the following is an Integer:9:5.4:"Hello World!":'c'
+b:Which of the following is not a type of loop:if:for:while:do while

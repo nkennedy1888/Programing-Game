@@ -14,7 +14,9 @@ public class LevelGen : MonoBehaviour
     public GameObject player;
     public GameObject[] enemy;
     private GameObject platform;
+//    private GameObject inAirPlatform;
     private PlatformTemplates templates;
+    //private PlatformTemplates 
     [HideInInspector] public int color;
     private int randY;
     private GameObject prev;   
@@ -22,7 +24,7 @@ public class LevelGen : MonoBehaviour
     private int y = 0;
     private int enemies;
     private int numEnemy = 0;
-    
+    private int lastX = 0;
 
     //public GameObject Brick;
 
@@ -81,6 +83,11 @@ public class LevelGen : MonoBehaviour
             prev = spawnTile(prev, x, y);
             spawnRight(prev, prev2, x, y);
 
+            //spawns floating platforms
+            if(x > lastX && x < maxX - 4)
+            {
+                lastX = spawnFloatingPlatform(prev, x, y);
+            }
         }
 
         //Makes sure the last tile is a right tile
@@ -121,10 +128,11 @@ public class LevelGen : MonoBehaviour
             GameObject[] middles = GameObject.FindGameObjectsWithTag("Middle");
             
                
-            for (int i = 4; i <middles.Length - 4; i++)               
+            for (int i = 0; i <middles.Length; i++)               
             {
                 if(!Physics.CheckSphere(middles[i].transform.position, .4f) && !Physics.CheckSphere(middles[i].transform.position + new Vector3(1,0,0), .4f) && !Physics.CheckSphere(middles[i].transform.position + new Vector3(2, 0, 0), .4f)
-                    && !Physics.CheckSphere(middles[i].transform.position + new Vector3(-2, 0, 0), .4f) && !Physics.CheckSphere(middles[i].transform.position + new Vector3(-1, 0, 0), .4f)) 
+                    && !Physics.CheckSphere(middles[i].transform.position + new Vector3(-2, 0, 0), .4f) && !Physics.CheckSphere(middles[i].transform.position + new Vector3(-1, 0, 0), .4f) && middles[i].transform.position.x >= 4
+                    && middles[i].transform.position.y >= 0 && middles[i].transform.position.y <= maxY) 
                 {
                     SpawnEnemy(middles[i]);                       
                     numEnemy++;                   
@@ -134,7 +142,76 @@ public class LevelGen : MonoBehaviour
             }
             
         }
+
+
+
     }
+
+    //Creates Floating Platforms
+    int spawnFloatingPlatform(GameObject prev, int x, int y)
+    {
+        //GameObject flyingPlatform = null;
+        int lastX = x;
+
+        //chose floating platform color
+        //int flyColor = Random.Range(0, 3);
+
+        //Give 1 in x chance of spawning
+        int a = Random.Range(1, 10);
+        if (a <= 3)
+        {
+            //selects length of floating platform
+            int b = Random.Range(3, 5);
+            //selects height of floating platform
+            int c = Random.Range(4, maxJump + 4);
+
+            if (b == 2)
+            {
+                Instantiate(templates.floatLeft[color], new Vector3(0.5f + x, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                Instantiate(templates.floatRight[color], new Vector3(0.5f + x + 1, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+
+                lastX = x + 2;
+                return lastX;
+            }
+
+            else
+                if (b == 3)
+                {
+                    Instantiate(templates.floatLeft[color], new Vector3(0.5f + x, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                    Instantiate(templates.floatMid[color], new Vector3(0.5f + x + 1, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                    Instantiate(templates.floatRight[color], new Vector3(0.5f + x + 2, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                lastX = x + 3;
+                return lastX;
+            }
+
+            else
+                if (b == 4)
+                {
+                    Instantiate(templates.floatLeft[color], new Vector3(0.5f + x, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                    for (int i = 1; i <= 2; i++)
+                    {
+                        Instantiate(templates.floatMid[color], new Vector3(0.5f + x + i, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                    }
+                    Instantiate(templates.floatRight[color], new Vector3(0.5f + x + 3, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                lastX = x + 4;
+                return lastX;
+            }
+
+            else
+            {
+                Instantiate(templates.floatLeft[color], new Vector3(0.5f + x, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                for (int i = 1; i <= 3; i++)
+                    {
+                        Instantiate(templates.floatMid[color], new Vector3(0.5f + x + i, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                    }
+                Instantiate(templates.floatRight[color], new Vector3(0.5f + x + 4, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                lastX = x + 5;
+                return lastX;
+            }
+        }
+
+        return lastX;
+    }       
 
     //Select the spawn point and type for next tile
     GameObject spawnTile(GameObject prev, int x, int y)
@@ -189,7 +266,7 @@ public class LevelGen : MonoBehaviour
         return prevtag;
     }
 
-    void spawnRight(GameObject curr, GameObject prev, int x, int yNext) 
+    void spawnRight(GameObject curr, GameObject prev, int x, int yNext)
     {
         if (prev.tag == "Right")
         {            
@@ -203,12 +280,11 @@ public class LevelGen : MonoBehaviour
                 {
                     Instantiate(templates.middleBot[color], new Vector3(0.5f + x - 1, i, 0), Quaternion.identity, platform.transform);
                 }
-
             }
         }
     }
 
-    public void SpawnBoarder() 
+    public void SpawnBoarder()
     {
         Instantiate(templates.sideBot[color], new Vector3(-0.5f, -1.5f, 0), Quaternion.identity, platform.transform);
         for (int i = 1; i <= maxY + 1; i++)
@@ -239,7 +315,7 @@ public class LevelGen : MonoBehaviour
         Instantiate(templates.floatRight[color], new Vector3(0.5f + maxX + 1, -1.5f + maxY + 2, 0), Quaternion.identity, platform.transform);
     }
 
-   void SpawnEnemy(GameObject plat) 
+   void SpawnEnemy(GameObject plat)
     {
         int i = Random.Range(0, enemy.Length);
         Instantiate(enemy[i], plat.transform.position + new Vector3(0, 1, 0), Quaternion.identity, platform.transform);        

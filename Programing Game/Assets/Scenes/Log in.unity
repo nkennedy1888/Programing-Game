@@ -1650,7 +1650,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4321062564560487467, guid: ea16c2903830f8e46a40d21023349332, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4321062564560487467, guid: ea16c2903830f8e46a40d21023349332, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2007,9 +2007,10 @@ GameObject:
   - component: {fileID: 1061959288}
   - component: {fileID: 1061959287}
   - component: {fileID: 1061959291}
+  - component: {fileID: 1061959292}
   m_Layer: 5
   m_Name: UI
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2092,7 +2093,7 @@ RectTransform:
   - {fileID: 2094719796}
   - {fileID: 1834055720}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2123,6 +2124,18 @@ MonoBehaviour:
   err_ConfPass_Teacher: {fileID: 1716344135}
   err_ConfPass_Student: {fileID: 1564075473}
   err_ClassCode: {fileID: 177689988}
+--- !u!114 &1061959292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061959286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d89ef2c19c968242a612950f4f420c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1071865255
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,10 +21,7 @@ TagManager:
   - EnemySpawn
   - BattleUI
   - Fader
-  - select sfx
-  - ambient music
-  - jump sfx
-  - battle music
+  - UI
   layers:
   - Default
   - TransparentFX
