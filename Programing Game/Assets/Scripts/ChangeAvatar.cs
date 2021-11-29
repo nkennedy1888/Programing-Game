@@ -19,8 +19,10 @@ public class ChangeAvatar : MonoBehaviour
         //updates the avatarID for current user when called
         user = GameObject.FindGameObjectWithTag("Player").GetComponent<Database>().currUser;
         index = user.avatarID;
-
-        if( index < avatars) 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        SoundManagerScript.playSound("select sfx");
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if (index < avatars) 
         {
             user.avatarID += 1;
         }

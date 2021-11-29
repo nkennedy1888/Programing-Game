@@ -109,6 +109,7 @@ public class UserAuth : MonoBehaviour
         //Debug.Log("User: " +currUser +"Password: " +currPassword);
         if (currUser == "" || currPassword == "")
         {
+            SoundManagerScript.playSound("select sfx");
             err_Username.GetComponent<Text>().text = "Please enter a unique user-name and password";
             err_Password.SetActive(true);
             StartCoroutine(messageTimer(err_Password));
@@ -447,7 +448,7 @@ public class UserAuth : MonoBehaviour
     //     * },
     //     * {
     //     * type: TEACHER
-    //     * name: rock
+    //     * name: dwayne the rock
     //     * pass: johnson
     //     * code: 12122 //code for TEACHER indicates their class
     //     * }//No comma indicates end of file
@@ -481,7 +482,9 @@ public class UserAuth : MonoBehaviour
 
     //Removes current user entry from playerprefs; redirects to login scene
     public void LogOut()
-    {
+    {///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        SoundManagerScript.playSound("select sfx");
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         PlayerPrefs.DeleteKey("username");
         SceneManager.LoadScene("Log In");
     }

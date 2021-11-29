@@ -22,3 +22,27 @@ pass: bob
 type: student
 code: 184
 },
+{
+name: g
+pass: g
+type: student
+code: g
+},
+{
+name: l
+pass: l
+type: student
+code: l
+},
+{
+name: j
+pass: j
+type: teacher
+code: 
+},
+{
+name: a
+pass: a
+type: student
+code: a
+},
