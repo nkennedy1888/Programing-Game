@@ -582,7 +582,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 127589363}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 659052382}
+        m_TargetAssemblyTypeName: ChangeLevel, Assembly-CSharp
+        m_MethodName: LevelSelect
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &127589363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1868,6 +1880,7 @@ GameObject:
   - component: {fileID: 659052378}
   - component: {fileID: 659052377}
   - component: {fileID: 659052381}
+  - component: {fileID: 659052382}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -1975,6 +1988,18 @@ MonoBehaviour:
   settings_Parent: {fileID: 510394252}
   account_Parent: {fileID: 764813514}
   changePassParent: {fileID: 867643091}
+--- !u!114 &659052382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659052376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e43b7a105cd1acf4f9c1965458dcefd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &669149922
 GameObject:
   m_ObjectHideFlags: 0
@@ -3653,7 +3678,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1630104882}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 659052382}
+        m_TargetAssemblyTypeName: ChangeLevel, Assembly-CSharp
+        m_MethodName: LevelSelect
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1630104882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4051,7 +4088,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2064892985}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 659052382}
+        m_TargetAssemblyTypeName: ChangeLevel, Assembly-CSharp
+        m_MethodName: LevelSelect
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2064892985
 MonoBehaviour:
   m_ObjectHideFlags: 0

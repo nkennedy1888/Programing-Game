@@ -71,7 +71,7 @@ public class Battle : MonoBehaviour
             battleCam.GetComponent<CinemachineVirtualCamera>().Priority = 5;
             GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerController>().enabled = true;
             StartCoroutine(sf.FadeToClear());
-            eCurr = eMax;
+           
         }
 
         if(isBattle && pCurr == 0)
@@ -85,6 +85,8 @@ public class Battle : MonoBehaviour
 
     public void Fight()
     {
+        eCurr = eMax;
+        pCurr = pMax;
         ScreenFade sf = GameObject.FindGameObjectWithTag("Fader").GetComponent<ScreenFade>();
         isBattle = true;
         StartCoroutine(sf.FadeToBlack());

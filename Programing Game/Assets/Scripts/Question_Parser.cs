@@ -19,6 +19,7 @@ public class Question_Parser : MonoBehaviour
     public GameObject message;
     [HideInInspector]public bool hit;
     [HideInInspector] public bool attack;
+    public int level;
 
     //Question bank created on Parser.Run
     List<string> qType = new List<string>();
@@ -32,7 +33,7 @@ public class Question_Parser : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        level = PlayerPrefs.GetInt("level");
     }
 
     // Update is called once per frame
@@ -61,8 +62,19 @@ public class Question_Parser : MonoBehaviour
                 iAnswer3.Add(values[5]);
             }
         }
-       
-        q = this.GetQuestion(UnityEngine.Random.Range(0,6));
+
+        
+
+        if(level == 1)
+        {
+            q = this.GetQuestion(UnityEngine.Random.Range(0, 6));
+        }
+        else
+        {
+            q = this.GetQuestion(UnityEngine.Random.Range(0, 3));
+        }
+        
+
         qtext.text = q[0].Replace("@", Environment.NewLine);
 
         Boolean flag = true;
@@ -87,7 +99,6 @@ public class Question_Parser : MonoBehaviour
             
         }
         
-        Debug.Log("button was clicked!");
         qUI.SetActive(true);
 
         return;
@@ -100,7 +111,19 @@ public class Question_Parser : MonoBehaviour
             message.GetComponent<Text>().text =  t.text + " is correct";
             message.SetActive(true);
             StartCoroutine(MessageTimer(message, .5f, qUI));
-            //data.currUser.qstCrctBeginner ++;
+            if (level == 1) 
+            { 
+                data.currUser.qstCrctBeginner ++;
+            }
+            else if (level == 2)
+            {
+                data.currUser.qstCrctIntermediate++;
+            }
+            else if (level == 3)
+            {
+                data.currUser.qstCrctAdvanced++;
+            }
+            
             hit = true;
             attack = true;
             return;
@@ -110,12 +133,26 @@ public class Question_Parser : MonoBehaviour
             message.GetComponent<Text>().text = t.text + " is incorrect " +q[1]+ " is correct";
             message.SetActive(true);
             StartCoroutine(MessageTimer(message, 1f, qUI));
-            //data.currUser.qstCrctBeginner++;
+            if (level == 1)
+            {
+                data.currUser.qstWrgBeginner++;
+            }
+            else if (level == 2)
+            {
+                data.currUser.qstWrgIntermediate++;
+            }
+            else if (level == 3)
+            {
+                data.currUser.qstWrgAdvanced++;
+            }
             hit = false;
             attack = true;
             return;
         }
     }
+
+    
+
     //Input is an integer. Returns question at that index in the form of a string array.
     //Index 0 is the question. Index 1 is the correct answer. Index 2,3, and 4 are the incorrect answers.
     public string[] GetQuestion(int n)
@@ -129,10 +166,10 @@ public class Question_Parser : MonoBehaviour
             case "a":
                 //generate random variables to be used with the question
                 System.Random rnd = new System.Random();
-                int a = rnd.Next(1, 11);
-                int b = rnd.Next(1, 11);
-                int x = rnd.Next(1, 3);
-                int y = rnd.Next(1, 11);
+                int a = rnd.Next(1, 5 * level); 
+                int b = rnd.Next(1, 5 * level);
+                int x = rnd.Next(1, 2 + level); 
+                int y = rnd.Next(1, 5 * level);
 
                 string ques = question[n];
                 string ans = cAnswer[n];
