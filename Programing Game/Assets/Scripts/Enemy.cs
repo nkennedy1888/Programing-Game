@@ -8,15 +8,15 @@ public class Enemy : MonoBehaviour
     public GameObject player;
     private Collider2D coll;
     private GameObject enemy;
-    
-    
+    public Animator anim;
+
     // Start is called before the first frame update
     void Start()
     {
         playerSpot = GameObject.FindGameObjectWithTag("Respawn");
         enemy = GameObject.FindGameObjectWithTag("EnemySpawn");
         coll = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
-        
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -39,5 +39,18 @@ public class Enemy : MonoBehaviour
             GameObject.Find("Battle spot").gameObject.GetComponent<Battle>().Fight();
             
         }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Bullet")
+        {
+            anim.SetBool("IsHit", true);
+            Destroy(collision.gameObject);
+           
+
+        }
+
+
     }
 }

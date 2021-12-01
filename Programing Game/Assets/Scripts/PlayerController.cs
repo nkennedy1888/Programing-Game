@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private Animator anim;
+    public Animator anim;
     public Collider2D objectCollider;
     public Collider2D wallCollider;
     public Collider2D anotherCollider;
@@ -67,4 +67,5 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isWalling", false);
         }
     }
+
 }

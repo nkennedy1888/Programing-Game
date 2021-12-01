@@ -13,6 +13,8 @@ public class Battle : MonoBehaviour
     public GameObject battleCam;
     public Question_Parser qPars;
     public BattleUIGeneral bUI;
+    public GameObject bullet;
+    public float bulletSpeed;
     public int pMax;
     public int eMax;
     private int pAttk;
@@ -50,14 +52,21 @@ public class Battle : MonoBehaviour
             StartCoroutine(EnemyAttack());
             qPars.hit = false;
             qPars.attack = false;
+            
         }
 
+        if (isBattle)
+        {
+            
+        }
+        
         if (isBattle && !qPars.hit && qPars.attack)
         {
             //add attack anim and miss message
             StartCoroutine(EnemyAttack());
             qPars.hit = false;
             qPars.attack = false;
+            
         }
 
         if (isBattle && eCurr == 0)
@@ -109,7 +118,9 @@ public class Battle : MonoBehaviour
 
     public IEnumerator PlayerAttack()
     {
-       
+
+        GameObject nbullet = Instantiate(bullet, new Vector3(1, 0, 0) + player.transform.position, Quaternion.identity);
+        nbullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, nbullet.GetComponent<Rigidbody2D>().velocity.y);
         yield return new WaitForSecondsRealtime(1.7f);
 
         pAttk = Random.Range(18, 22);
@@ -122,21 +133,27 @@ public class Battle : MonoBehaviour
         {
             eCurr -= pAttk;
         }
-
+        enemy.GetComponent<Enemy>().anim.SetBool("IsHit", false);
     }
     public IEnumerator EnemyAttack()
     {
-        
-        yield return new WaitForSecondsRealtime(2.4f);
-        eAttk = Random.Range(12, 19);
-        if (pCurr<= eAttk)
+        yield return new WaitForSecondsRealtime(1.7f);
+
+        GameObject nbullet = Instantiate(bullet, new Vector3(-1,0,0) + enemy.transform.position, Quaternion.identity,enemy.transform);
+        nbullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-bulletSpeed, nbullet.GetComponent<Rigidbody2D>().velocity.y);
+        yield return new WaitForSecondsRealtime(2.1f);
+        if (isBattle)
         {
-            pCurr = 0;
-        }
-        else
-        {
-            pCurr -= eAttk;
-        }
-        
+            eAttk = Random.Range(12, 19);
+            if (pCurr<= eAttk)
+            {
+                pCurr = 0;
+            }
+            else
+            {
+                pCurr -= eAttk;
+            }
+            player.GetComponent<PlayerBattle>().anim.SetBool("IsHit", false);
+        }   
     }
 }

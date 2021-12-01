@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6464650376363656351}
   - component: {fileID: 8324814862494231052}
   - component: {fileID: 6485653210763644474}
+  - component: {fileID: -8805119522226968521}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -164,6 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c8c9fe1e6f91947b3034de3450b28f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   objectCollider: {fileID: 5775834820057322041}
   wallCollider: {fileID: 4321062564560487469}
   anotherCollider: {fileID: 0}
@@ -179,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6271dac8b257942a3d4f95e1659cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: 
   currUser:
     username: 
     password: 
@@ -234,3 +237,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-8805119522226968521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4321062564560487471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97a421cce592f841a29a39fcb20e213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}

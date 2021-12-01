@@ -29,6 +29,7 @@ TagManager:
   - ScrollView_Content
   - Listing
   - PlayerClone
+  - Bullet
   layers:
   - Default
   - TransparentFX

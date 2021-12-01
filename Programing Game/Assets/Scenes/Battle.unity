@@ -1479,6 +1479,8 @@ MonoBehaviour:
   battleCam: {fileID: 37881432}
   qPars: {fileID: 59704541}
   bUI: {fileID: 59704542}
+  bullet: {fileID: 317513535994008344, guid: 8d116b7607b1ec244990aa9651813c48, type: 3}
+  bulletSpeed: 10
   pMax: 100
   eMax: 100
   pHealth: {fileID: 1350451197}
@@ -5000,6 +5002,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4321062564560487471, guid: ea16c2903830f8e46a40d21023349332, type: 3}
   m_PrefabInstance: {fileID: 1601532491}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1601532493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601532492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97a421cce592f841a29a39fcb20e213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
 --- !u!114 &1601532495 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6464650376363656351, guid: ea16c2903830f8e46a40d21023349332, type: 3}
