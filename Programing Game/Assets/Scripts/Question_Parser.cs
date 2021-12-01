@@ -40,7 +40,7 @@ public class Question_Parser : MonoBehaviour
     //Input must be a string in the form   string ex = @"fullpath"
     public void Qpop()
     {
-        string path = "Assets/Questions.csv";
+        string path = Application.streamingAssetsPath + "/Questions.csv";
         using (var reader = new StreamReader(path))
         {
             while (!reader.EndOfStream)
