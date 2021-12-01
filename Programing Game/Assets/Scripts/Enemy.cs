@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -19,25 +17,16 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player" && collision.collider.GetType() == typeof(CapsuleCollider2D)) 
-        {
-            
+        {            
             GameObject playerClone = Instantiate(player, new Vector3(0.5f , 0.5f , 0), Quaternion.identity, playerSpot.transform);
             playerClone.transform.position = playerSpot.transform.position;
-
             this.gameObject.transform.position = enemy.transform.position;
             this.gameObject.transform.SetParent(enemy.transform, true);
             GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<PlayerController>().enabled = false;
-            GameObject.Find("Battle spot").gameObject.GetComponent<Battle>().Fight();
-            
+            GameObject.Find("Battle spot").gameObject.GetComponent<Battle>().Fight();            
         }
     }
 
@@ -46,11 +35,7 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             anim.SetBool("IsHit", true);
-            Destroy(collision.gameObject);
-           
-
+            Destroy(collision.gameObject);           
         }
-
-
     }
 }

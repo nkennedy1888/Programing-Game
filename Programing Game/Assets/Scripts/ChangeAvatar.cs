@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ChangeAvatar : MonoBehaviour
@@ -19,9 +17,8 @@ public class ChangeAvatar : MonoBehaviour
         //updates the avatarID for current user when called
         user = GameObject.FindGameObjectWithTag("Player").GetComponent<Database>().currUser;
         index = user.avatarID;
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         SoundManagerScript.playSound("select sfx");
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         if (index < avatars) 
         {
             user.avatarID += 1;
@@ -30,9 +27,6 @@ public class ChangeAvatar : MonoBehaviour
         {
             user.avatarID = 0;
         }
-
         return;
-    }
-
-   
+    }  
 }

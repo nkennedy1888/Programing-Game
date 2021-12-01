@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +7,6 @@ public class ChangeLevel : MonoBehaviour
     public Text beg;
     public Text inte;
     public Text adv;
-    //public Database db;
     private Database localDB;
     IEnumerator Start()
     {
@@ -22,7 +20,5 @@ public class ChangeLevel : MonoBehaviour
     public void LevelSelect(int l)
     {
         PlayerPrefs.SetInt("level", l);
-        Debug.Log("level is " + l);
-
     }
 }

@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxX: 58
-  maxY: 27
+  maxY: 23
   maxJump: 4
   finish: {fileID: 2913820659485452655, guid: c9765bb877993eb40a3926ed62e98ace, type: 3}
   player: {fileID: 0}
@@ -134,13 +134,9 @@ MonoBehaviour:
   - {fileID: 689108867892676589, guid: aa90f165803ef9c48ba177c04f6fc754, type: 3}
   - {fileID: 2775197611169449070, guid: 889c23f13a2ff3e4e8141eaa12860084, type: 3}
   - {fileID: 2418912686222627438, guid: c154092b08c2f9a48a5962adf8d399ac, type: 3}
-  - {fileID: 2205855098042141291, guid: 708839b375fa70c4eaaa0713c2129c1c, type: 3}
   - {fileID: 518423630427374024, guid: 6bc6a5e0d6f36624db58529fcaa7e98f, type: 3}
   - {fileID: 6390533555067628443, guid: a3d6cc23fa827b64ea7b2cf51ba6c653, type: 3}
   - {fileID: 9045330769691399474, guid: 769c5a37bf9437a40896654a08786e47, type: 3}
-  - {fileID: 8902637480440404331, guid: 4de94c7cd7687dc47b2c713bab951951, type: 3}
-  - {fileID: 180466543006836173, guid: 7e889f3807eb2f04eb5a43b8b54e7ea0, type: 3}
-  - {fileID: 364008378355195814, guid: a97c46a0649205241ab2f381b185cb5f, type: 3}
   - {fileID: 4913655209598999232, guid: 7bd2d94ca26f2434aa1dfe05674c54dc, type: 3}
   - {fileID: 6346309776833570257, guid: 3a95e6088e03505479c1695337ecbc9e, type: 3}
   - {fileID: 9153362868300940467, guid: 2411ecf3687f69d4e91424ae906c0cfb, type: 3}

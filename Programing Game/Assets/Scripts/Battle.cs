@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
@@ -27,46 +26,33 @@ public class Battle : MonoBehaviour
     public Slider eBar;
     // Start is called before the first frame update
     void Start()
-    {
-      
+    {      
         isBattle = false;
         pCurr = pMax;
         eCurr = eMax;
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
-
         pBar.value = CalculateStat(pCurr, pMax);
         eBar.value = CalculateStat(eCurr, eMax);
         pHealth.text = pCurr + " / " + pMax;
         eHealth.text = eCurr + " / " + eMax;
 
         if(isBattle && qPars.hit && qPars.attack)
-        {
-            //add hit anim and attck anim
+        {           
             StartCoroutine(PlayerAttack());
             StartCoroutine(EnemyAttack());
             qPars.hit = false;
-            qPars.attack = false;
-            
+            qPars.attack = false;          
         }
 
-        if (isBattle)
-        {
-            
-        }
-        
         if (isBattle && !qPars.hit && qPars.attack)
         {
-            //add attack anim and miss message
             StartCoroutine(EnemyAttack());
             qPars.hit = false;
-            qPars.attack = false;
-            
+            qPars.attack = false;           
         }
 
         if (isBattle && eCurr == 0)
@@ -87,11 +73,7 @@ public class Battle : MonoBehaviour
         {
             bUI.Exit();
         }
-
-
-
     }
-
 
     public void Fight()
     {
@@ -106,23 +88,18 @@ public class Battle : MonoBehaviour
         battleUI.SetActive(true);
         battleCam.GetComponent<CinemachineVirtualCamera>().Priority = 15;
         StartCoroutine(sf.FadeToClear());
-
     }
     float CalculateStat(int currstat, int maxstat)
     {
         float num = (float)currstat / (float)maxstat;
-
         return num;
-
     }
 
     public IEnumerator PlayerAttack()
     {
-
         GameObject nbullet = Instantiate(bullet, new Vector3(1, 0, 0) + player.transform.position, Quaternion.identity);
         nbullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, nbullet.GetComponent<Rigidbody2D>().velocity.y);
         yield return new WaitForSecondsRealtime(1.7f);
-
         pAttk = Random.Range(18, 22);
         
         if (eCurr <= pAttk)
@@ -138,7 +115,6 @@ public class Battle : MonoBehaviour
     public IEnumerator EnemyAttack()
     {
         yield return new WaitForSecondsRealtime(1.7f);
-
         GameObject nbullet = Instantiate(bullet, new Vector3(-1,0,0) + enemy.transform.position, Quaternion.identity,enemy.transform);
         nbullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-bulletSpeed, nbullet.GetComponent<Rigidbody2D>().velocity.y);
         yield return new WaitForSecondsRealtime(2.1f);

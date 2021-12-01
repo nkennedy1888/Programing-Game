@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerBattle : MonoBehaviour
@@ -17,9 +15,6 @@ public class PlayerBattle : MonoBehaviour
         {
             anim.SetBool("IsHit", true);
             Destroy(collision.gameObject);
-
-
         }
     }
-
 }

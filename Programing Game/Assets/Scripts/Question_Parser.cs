@@ -36,12 +36,6 @@ public class Question_Parser : MonoBehaviour
         level = PlayerPrefs.GetInt("level");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     //Creates the question bank in lists. Each Index in each list go together.
     //Input must be a string in the form   string ex = @"fullpath"
     public void Qpop()
@@ -61,9 +55,7 @@ public class Question_Parser : MonoBehaviour
                 iAnswer2.Add(values[4]);
                 iAnswer3.Add(values[5]);
             }
-        }
-
-        
+        }       
 
         if(level == 1)
         {
@@ -74,7 +66,6 @@ public class Question_Parser : MonoBehaviour
             q = this.GetQuestion(UnityEngine.Random.Range(0, 3));
         }
         
-
         qtext.text = q[0].Replace("@", Environment.NewLine);
 
         Boolean flag = true;
@@ -95,8 +86,7 @@ public class Question_Parser : MonoBehaviour
                 {
                     flag = false;
                 }
-            }
-            
+            }           
         }
         
         qUI.SetActive(true);
@@ -142,9 +132,6 @@ public class Question_Parser : MonoBehaviour
             hit = true;
             attack = true;
             data.users[data.name] = data.currUser;
-            Debug.Log(data.currUser.progressBeginner.ToString());
-            Debug.Log(data.currUser.progressIntermediate.ToString());
-            Debug.Log(data.currUser.progressAdvanced.ToString());
             return;
         }
         else
@@ -182,9 +169,6 @@ public class Question_Parser : MonoBehaviour
             hit = false;
             attack = true;
             data.users[data.name] = data.currUser;
-            Debug.Log(data.currUser.progressBeginner.ToString());
-            Debug.Log(data.currUser.progressIntermediate.ToString());
-            Debug.Log(data.currUser.progressAdvanced.ToString());
             return;
         }
     }
@@ -399,6 +383,5 @@ public class Question_Parser : MonoBehaviour
             return tokens;
         }
     }
-
 }
 

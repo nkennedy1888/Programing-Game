@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundGen : MonoBehaviour
@@ -10,7 +8,6 @@ public class BackgroundGen : MonoBehaviour
     //Set background size
     public int maxX;
     public int maxY;
-
     private GameObject background;
     [HideInInspector] public int color;
 

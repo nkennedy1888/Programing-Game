@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelGen : MonoBehaviour
@@ -14,9 +12,7 @@ public class LevelGen : MonoBehaviour
     public GameObject player;
     public GameObject[] enemy;
     private GameObject platform;
-//    private GameObject inAirPlatform;
     private PlatformTemplates templates;
-    //private PlatformTemplates 
     [HideInInspector] public int color;
     private int randY;
     private GameObject prev;   
@@ -25,8 +21,6 @@ public class LevelGen : MonoBehaviour
     private int enemies;
     private int numEnemy = 0;
     private int lastX = 0;
-
-    //public GameObject Brick;
 
     // Start is called before the first frame update
     void Start()
@@ -48,9 +42,6 @@ public class LevelGen : MonoBehaviour
         prev = spawn;
 
         SpawnBoarder();
-       
-
-
     }
 
     // Update is called once per frame
@@ -103,7 +94,6 @@ public class LevelGen : MonoBehaviour
         }
         else
         {
-
             if (x >= maxX && x < maxX + 1 && prev.tag == "Right")
             {
                 x++;
@@ -125,9 +115,7 @@ public class LevelGen : MonoBehaviour
         //spawns random enemies
         while (numEnemy < enemies)
         {
-            GameObject[] middles = GameObject.FindGameObjectsWithTag("Middle");
-            
-               
+            GameObject[] middles = GameObject.FindGameObjectsWithTag("Middle");                      
             for (int i = 0; i <middles.Length; i++)               
             {
                 if(!Physics.CheckSphere(middles[i].transform.position, .4f) && !Physics.CheckSphere(middles[i].transform.position + new Vector3(1,0,0), .4f) && !Physics.CheckSphere(middles[i].transform.position + new Vector3(2, 0, 0), .4f)
@@ -137,14 +125,9 @@ public class LevelGen : MonoBehaviour
                     SpawnEnemy(middles[i]);                       
                     numEnemy++;                   
                     i += Random.Range(2,6);
-                }
-                                                     
-            }
-            
+                }                                                     
+            }            
         }
-
-
-
     }
 
     //Creates Floating Platforms
@@ -152,9 +135,6 @@ public class LevelGen : MonoBehaviour
     {
         //GameObject flyingPlatform = null;
         int lastX = x;
-
-        //chose floating platform color
-        //int flyColor = Random.Range(0, 3);
 
         //Give 1 in x chance of spawning
         int a = Random.Range(1, 10);
@@ -169,47 +149,42 @@ public class LevelGen : MonoBehaviour
             {
                 Instantiate(templates.floatLeft[color], new Vector3(0.5f + x, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
                 Instantiate(templates.floatRight[color], new Vector3(0.5f + x + 1, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
-
                 lastX = x + 2;
                 return lastX;
             }
-
-            else
-                if (b == 3)
-                {
-                    Instantiate(templates.floatLeft[color], new Vector3(0.5f + x, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
-                    Instantiate(templates.floatMid[color], new Vector3(0.5f + x + 1, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
-                    Instantiate(templates.floatRight[color], new Vector3(0.5f + x + 2, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+            else 
+            if (b == 3)
+            {
+                Instantiate(templates.floatLeft[color], new Vector3(0.5f + x, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                Instantiate(templates.floatMid[color], new Vector3(0.5f + x + 1, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                Instantiate(templates.floatRight[color], new Vector3(0.5f + x + 2, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
                 lastX = x + 3;
                 return lastX;
-            }
-
+            } 
             else
-                if (b == 4)
+            if (b == 4)
+            {
+                Instantiate(templates.floatLeft[color], new Vector3(0.5f + x, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                for (int i = 1; i <= 2; i++)
                 {
-                    Instantiate(templates.floatLeft[color], new Vector3(0.5f + x, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
-                    for (int i = 1; i <= 2; i++)
-                    {
-                        Instantiate(templates.floatMid[color], new Vector3(0.5f + x + i, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
-                    }
-                    Instantiate(templates.floatRight[color], new Vector3(0.5f + x + 3, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                    Instantiate(templates.floatMid[color], new Vector3(0.5f + x + i, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                }
+                Instantiate(templates.floatRight[color], new Vector3(0.5f + x + 3, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
                 lastX = x + 4;
                 return lastX;
             }
-
             else
             {
                 Instantiate(templates.floatLeft[color], new Vector3(0.5f + x, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
                 for (int i = 1; i <= 3; i++)
-                    {
-                        Instantiate(templates.floatMid[color], new Vector3(0.5f + x + i, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
-                    }
+                {
+                    Instantiate(templates.floatMid[color], new Vector3(0.5f + x + i, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
+                }
                 Instantiate(templates.floatRight[color], new Vector3(0.5f + x + 4, 0.5f + y + c, 0), Quaternion.identity, platform.transform);
                 lastX = x + 5;
                 return lastX;
             }
         }
-
         return lastX;
     }       
 
@@ -257,8 +232,7 @@ public class LevelGen : MonoBehaviour
                         else
                         {
                             Instantiate(templates.middleBot[color], new Vector3(0.5f + x, i, 0), Quaternion.identity, platform.transform);
-                        }
-                        
+                        }                        
                     }
                 }
             }
@@ -319,7 +293,5 @@ public class LevelGen : MonoBehaviour
     {
         int i = Random.Range(0, enemy.Length);
         Instantiate(enemy[i], plat.transform.position + new Vector3(0, 1, 0), Quaternion.identity, platform.transform);        
-    }
-
-   
+    }   
 }

@@ -34,40 +34,17 @@ public class SaveOptions : MonoBehaviour
         SetSFXVolume(sfxVolumeValue);
     }
 
-    /*void LoadValues()
+    void LoadValues()
     {
         float musicVolumeValue = PlayerPrefs.GetFloat("MusicVolumeValue");
         float sfxVolumeValue = PlayerPrefs.GetFloat("SFXVolumeValue");
         musicVolumeSlider.value = musicVolumeValue;
         sfxVolumeSlider.value = sfxVolumeValue;
-
-        myAudioMixer.SetFloat("ambientMusicVolume", Mathf.Log10(musicVolumeValue) * 20);
-        myAudioMixer.SetFloat("battleMusicVolume", Mathf.Log10(musicVolumeValue) * 20);
-
-        myAudioMixer.SetFloat("jumpSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("selectSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("projectileSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("healSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("takeDamageSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("damageEnemySFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("walkSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("backSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("navigateSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-    }*/
+    }
     public void SetMusicVolume(float musicVolumeValue)
     {
         musicAudioMixer.SetFloat("ambientMusicVolume", Mathf.Log10(musicVolumeValue) * 20);
         musicAudioMixer.SetFloat("battleMusicVolume", Mathf.Log10(musicVolumeValue) * 20);
-
-        /*myAudioMixer.SetFloat("jumpSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("selectSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("projectileSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("healSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("takeDamageSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("damageEnemySFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("walkSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("backSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);
-        myAudioMixer.SetFloat("navigateSFXVolume", Mathf.Log10(sfxVolumeValue) * 20);*/
     }
     public void SetSFXVolume(float sfxVolumeValue)
     {

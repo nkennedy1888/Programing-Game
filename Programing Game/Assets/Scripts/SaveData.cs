@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
@@ -21,7 +20,6 @@ public static class SaveData
 
         formatter.Serialize(stream, data);
         stream.Close();
-        Debug.Log("saved");
     }
 
     public static Dictionary<string, UserData> LoadData() 

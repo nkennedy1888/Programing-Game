@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleSpot : MonoBehaviour
@@ -21,7 +19,6 @@ public class BattleSpot : MonoBehaviour
     {
         battlespotBG = GameObject.FindGameObjectsWithTag("Battlespot")[0];
         battlespotPF = GameObject.FindGameObjectsWithTag("Battlespot")[1];
-
     }
 
     // Update is called once per frame
@@ -30,8 +27,6 @@ public class BattleSpot : MonoBehaviour
         background = GameObject.FindGameObjectWithTag("Background");        
         tilesBG = background.GetComponent<BackgroundGen>().backgrounds;
         colorBG = background.GetComponent<BackgroundGen>().color;
-
-
         platform = GameObject.FindGameObjectWithTag("Platform");
         tilesPF = platform.GetComponent<PlatformTemplates>();
         colorPF = platform.GetComponent<LevelGen>().color;

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,19 +19,6 @@ public class PopulateScrollView : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    //void Populate(string name, float score)
-    //{
-    //        newObj = (GameObject)Instantiate(listing, transform);
-    //        newObj.transform.Find("Name").GetComponent<Text>().text = name;
-    //        newObj.transform.Find("Score").GetComponent<Text>().text = score + "%";
-    //}
-
     public void GetRankings()
     {
         //Iterate over each user, collecting and calculating scores based on the following
@@ -43,19 +29,15 @@ public class PopulateScrollView : MonoBehaviour
         //Multiply weighted avg by completion status
         open = !open;
         if (!open)
-        {
-            
-
+        {           
             foreach (Transform child in content.transform)
             {
                 GameObject.Destroy(child.gameObject);
             }
-
             return;
         }
 
         float weightedAvg, begAvg, intAvg, advAvg, ranking;
-        Debug.Log(localDB.users.Keys);
         foreach (KeyValuePair<string, UserData> entry in localDB.users)
         {
             if (entry.Key.Equals(""))
@@ -63,7 +45,6 @@ public class PopulateScrollView : MonoBehaviour
                 continue;
             }
 
-            Debug.Log("Userentry in localDB.users: " + entry.Key + " " + entry.Value);
             //Reset all values
             weightedAvg = 0.0F;
             begAvg = 0.0F;
@@ -78,7 +59,6 @@ public class PopulateScrollView : MonoBehaviour
             else
             {
                 begAvg = (entry.Value.qstCrctBeginner) / (entry.Value.qstWrgBeginner + entry.Value.qstCrctBeginner);
-
             }
 
             if (entry.Value.qstCrctIntermediate == 0 && entry.Value.qstWrgIntermediate == 0)
@@ -88,7 +68,6 @@ public class PopulateScrollView : MonoBehaviour
             else
             {
                 intAvg = (entry.Value.qstCrctIntermediate) / (entry.Value.qstWrgIntermediate + entry.Value.qstCrctIntermediate);
-
             }
 
             if (entry.Value.qstCrctAdvanced == 0 && entry.Value.qstWrgAdvanced == 0)
@@ -124,41 +103,18 @@ public class PopulateScrollView : MonoBehaviour
             else
             {
                 d_Rankings.Add(entry.Key, ranking);
-            }
-            
-            
+            }   
         }
-        //l_Ranks = d_Rankings.ToList();
-        //l_Ranks.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
-
         //Should sort d_Rankings to display users in descending order based on score
         var sortedRankings = (from entry in d_Rankings orderby entry.Value descending select entry);
 
-        
-
         foreach (KeyValuePair<string, float> entry in sortedRankings)
-        {
-            
+        {            
             newObj = (GameObject)Instantiate(listing, transform);
-            //this.transform.position + new Vector3(0, -40 * counter, 0)
             newObj.transform.SetParent(GameObject.FindGameObjectWithTag("ScrollView_Content").transform);
             newObj.transform.Find("Name").GetComponent<Text>().text = entry.Key;
             newObj.transform.Find("Score").GetComponent<Text>().text = entry.Value + "%";
-
-            Debug.Log("Entry key and value: " + entry.Key + " " + entry.Value);
-
             newObj.SetActive(true);
         }
-
-        //GameObject newObj; // Create GameObject instance
-
-        //for (int i = 0; i < numberOfListings; i++)
-        //{
-        //    // Create new instances of our prefab until we've created as many as we specified
-        //    newObj = (GameObject)Instantiate(listing, transform);
-
-        //    // Randomize the color of our image
-            
-        //}
     }
 }

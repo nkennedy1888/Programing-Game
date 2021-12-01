@@ -8,30 +8,23 @@ using System;
 
 public class UserAuth : MonoBehaviour
 {
-
     private Database localDB;
-
     public GameObject b_signUp, b_Submit, parent_AccType, parent_TeacherAcc, parent_StudentAcc, uName, uPass;
     public GameObject err_Username, err_Password, err_ConfPass_Teacher, err_ConfPass_Student, err_ClassCode;
     private string currUser, currPassword, confirmPass, accType;
     private int classCode;
-
-    
+    private bool isNum;
 
     // Start is called before the first frame update
     void Start()
     {
-
         localDB = GameObject.FindGameObjectWithTag("Player").GetComponent<Database>();
-
-
 
         if ((SceneManager.GetActiveScene().name == "Log in"))
         {
             parent_AccType.SetActive(false);
             parent_StudentAcc.SetActive(false);
             parent_TeacherAcc.SetActive(false);
-
             err_Username.SetActive(false);
             err_Password.SetActive(false);
             err_ConfPass_Teacher.SetActive(false);
@@ -43,15 +36,7 @@ public class UserAuth : MonoBehaviour
             {
                 PlayerPrefs.DeleteKey("username");
             }
-
-        }
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
+        }       
     }
 
     //Receives string data from inputfield 'User Name' from On End trigger
@@ -73,7 +58,7 @@ public class UserAuth : MonoBehaviour
 
     public void GetCodeInput(string temp)
     {
-        classCode = Int32.Parse(temp);
+        isNum = Int32.TryParse(temp, out classCode);
     }
 
     //Activates account type selection fields
@@ -95,7 +80,6 @@ public class UserAuth : MonoBehaviour
         uName.SetActive(true);
         uPass.SetActive(true);
     }
-
     
     public void IsTeacher()
     {
@@ -106,22 +90,37 @@ public class UserAuth : MonoBehaviour
         uPass.SetActive(true);
     }
 
-
     public void CreateAccount()
     {
         //Invalid input checking
-        //Debug.Log("User: " +currUser +"Password: " +currPassword);
         if (currUser == "" || currPassword == "")
         {
             err_Username.GetComponent<Text>().text = "Please enter a unique user-name and password";
-            err_Password.SetActive(true);
-            StartCoroutine(messageTimer(err_Password));
+            err_Username.SetActive(true);
+            StartCoroutine(messageTimer(err_Username));
             return;
         }
+
+        if (localDB.HasUser(currUser))
+        {
+            err_Username.GetComponent<Text>().text = "User-name already in use";
+            err_Username.SetActive(true);
+            StartCoroutine(messageTimer(err_Username));
+            return;
+        }
+
         //Invalid input checking
         if (!currPassword.Equals(confirmPass))
         {
             err_Password.GetComponent<Text>().text = "Passwords do not match";
+            err_Password.SetActive(true);
+            StartCoroutine(messageTimer(err_Password));
+            return;
+        }
+
+        if ((!isNum || classCode < 1000 || classCode > 100000) && accType == "student")
+        {
+            err_Password.GetComponent<Text>().text = "Not a valid Class Code";
             err_Password.SetActive(true);
             StartCoroutine(messageTimer(err_Password));
             return;
@@ -132,25 +131,19 @@ public class UserAuth : MonoBehaviour
 
         //Scene redirection on succesful acc creation
         if (accType.ToLower().Equals("teacher"))
-        {
-            Debug.Log("To Teacher screen");
+        {         
             SetUsername(currUser);
             SceneManager.LoadScene("Main - Teacher");
         }
         else
-        {
-            Debug.Log("To Student screen");
+        {            
             SetUsername(currUser);
             SceneManager.LoadScene("Main - Student");
         }
-
-
     }
 
-    //Need to add functionality to cross-reference whether user is student or teacher
     public void Login()
     {
-        Debug.Log("User: " + currUser + "Password: " + currPassword);
         if (currUser == "" || currPassword == "")
         {
             err_Password.GetComponent<Text>().text = "Please enter your user-name and password";
@@ -159,42 +152,47 @@ public class UserAuth : MonoBehaviour
             return;
         }
 
-        //Debug.Log(localDB.HasUserandPassword(currUser, currPassword));
+        if (!localDB.HasUser(currUser))
+        {
+            err_Username.GetComponent<Text>().text = "User-name could not be found";
+            err_Username.SetActive(true);
+            StartCoroutine(messageTimer(err_Username));
+            return;
+        }
+
+        if (localDB.HasUser(currUser) && !localDB.HasUserandPassword(currUser, currPassword))
+        {
+            err_Password.GetComponent<Text>().text = "Password is incorrect, please try again";
+            err_Password.SetActive(true);
+            StartCoroutine(messageTimer(err_Password));
+            return;
+        }
 
        if(localDB.HasUserandPassword(currUser, currPassword))
        {
             SetUsername(currUser);
             if (localDB.users[currUser].accountType.ToLower().Equals("teacher"))
-            {
-                Debug.Log("is teacher");
-                //SetUsername(currUser);
+            {                
                 SceneManager.LoadScene("Main - Teacher");
             }
             else if (localDB.users[currUser].accountType.ToLower().Equals("student"))
-            {
-                Debug.Log("is student");
-                //SetUsername(currUser);
+            {                
                 SceneManager.LoadScene("Main - Student");
             }
             else
             {
-                Debug.Log("Help");
-                Debug.Log("acctype error");
                 err_Password.GetComponent<Text>().text = "An issue has occurred in identifying accType";
                 err_Password.SetActive(true);
                 StartCoroutine(messageTimer(err_Password));
                 PlayerPrefs.DeleteKey("username");
                 return;
             }
-       }
- 
+       } 
     }
 
-    //Write current users password input to users.txt and PlayerPrefs for persistence across scenes
     public void SetUsername(string temp)
     {
-        PlayerPrefs.SetString("username", temp);
-        //localDB.currUser = localDB.users[temp];
+        PlayerPrefs.SetString("username", temp);        
     }
     //Read current username from PlayerPrefs; 
     public string GetUsername()

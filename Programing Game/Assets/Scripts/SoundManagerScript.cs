@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManagerScript : MonoBehaviour
@@ -22,12 +20,6 @@ public class SoundManagerScript : MonoBehaviour
         SoundManagerScript.playSound("ambient music");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public static void playSound(string clip)
     {
         switch (clip)
@@ -35,30 +27,16 @@ public class SoundManagerScript : MonoBehaviour
             case "jumping sfx":
                 audioSrcJump.PlayOneShot(jumpSound);
                 break;
-            /*case "walking sfx":
-                //audioSrcWalk.PlayOneShot(walkSound);
-                audioSrcWalk.clip = walkSound;
-                audioSrcWalk.Play();
-                if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
-                    audioSrcWalk.loop = true;
-                else if (!Input.GetKeyDown(KeyCode.LeftArrow) || !Input.GetKeyDown(KeyCode.RightArrow))
-                {
-                    audioSrcWalk.loop = false;
-                    audioSrcWalk.Stop();
-                }   
-                break;*/
             case "select sfx":
                 audioSrcSelect.PlayOneShot(selectSound);
                 break;
             case "ambient music":
-                //audioSrcAmbient.PlayOneShot(ambientMusic);
                 audioSrcBattle.Stop();
                 audioSrcAmbient.clip = ambientMusic;
                 audioSrcAmbient.Play();
                 audioSrcAmbient.loop = true;
                 break;
             case "battle music":
-                //audioSrcBattle.PlayOneShot(battleMusic);
                 audioSrcAmbient.Stop();
                 audioSrcBattle.clip = battleMusic;
                 audioSrcBattle.Play();

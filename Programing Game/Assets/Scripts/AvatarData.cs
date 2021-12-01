@@ -8,7 +8,6 @@ public class AvatarData : MonoBehaviour
     public int index;
     public GameObject player;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +29,8 @@ public class AvatarData : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "Log in")
             {
                 index = Random.Range(0, 4);
-            }
-                       
-        }
-        
+            }                       
+        }     
     }
 
     // Update is called once per frame
@@ -43,9 +40,7 @@ public class AvatarData : MonoBehaviour
         if (SceneManager.GetActiveScene().name != "Log in") 
         {
             index = player.GetComponent<Database>().currUser.avatarID;
-        }
-        
-       
+        }               
         player.GetComponent<Animator>().runtimeAnimatorController = avatars[index];
     }
 }

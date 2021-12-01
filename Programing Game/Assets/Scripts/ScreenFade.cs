@@ -1,12 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ScreenFade : MonoBehaviour {
     Animator anim;
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     int counter = 0;
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     bool isFading = false;
 
 	// Use this for initialization
@@ -18,13 +15,11 @@ public class ScreenFade : MonoBehaviour {
         isFading = true;
         anim.SetTrigger("Fade In");
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         counter = counter + 1;
         if (counter % 2 == 0)
             SoundManagerScript.playSound("ambient music");
         else if (counter % 2 != 0)
             SoundManagerScript.playSound("battle music");
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         while (isFading)
             yield return null;
@@ -34,7 +29,6 @@ public class ScreenFade : MonoBehaviour {
     {
         isFading = true;
         anim.SetTrigger("Fade Out");
-
 
         while (isFading)
             yield return null;

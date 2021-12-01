@@ -26,13 +26,9 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("Speed", Mathf.Abs(hDirection));
         anim.SetBool("IsJumping", rb.velocity.y > 0.01);
         anim.SetBool("IsFalling", rb.velocity.y < -0.01);
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       
         if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.y < 0.01 && rb.velocity.y > -0.01)
             SoundManagerScript.playSound("jumping sfx");
-        /*if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow)) && rb.velocity.y < 0.01 && rb.velocity.y > -0.01)
-            SoundManagerScript.playSound("walking sfx");*/
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         if (hDirection > 0)
         {
@@ -60,12 +56,10 @@ public class PlayerController : MonoBehaviour
         if (wallCollider.IsTouching(anotherCollider) && !objectCollider.IsTouching(anotherCollider))
         {
             anim.SetBool("isWalling", true);
-
         }
         else
         {
             anim.SetBool("isWalling", false);
         }
     }
-
 }
